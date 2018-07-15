@@ -13,5 +13,5 @@ async def on_ready():
 @bot.command()
 async def greet(msg):
     await msg.send(":smiley: :wave: Hello, there!")
-    rin.change_presence(game=discord.Game(name='test'))
+    
 rin.run('NDAxNjE2NjkxNTkyNjkxNzEz.DTt_GQ.COQRZfPaW3wT8771iRP5EnxJmAM')
