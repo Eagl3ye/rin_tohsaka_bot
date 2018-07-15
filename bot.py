@@ -21,6 +21,7 @@ async def on_ready():
 @rin.command()
 async def greet(msg):
     await msg.send(":smiley: :wave: Hello, there!")
+@rin.command()
 async def access(msg):
     cur = conn.cursor()
     cur.execute("SELECT * FROM test;")
