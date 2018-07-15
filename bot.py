@@ -1,17 +1,18 @@
 import discord
 from discord.ext import commands
 
-bot = commands.Bot(command_prefix='$')
+rin = commands.Bot(command_prefix='$')
 
 @bot.event
 async def on_ready():
     print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
+    print(rin.user.name)
+    print(rin.user.id)
     print('------')
+    rin.change_presence(game=discord.Game(name='test'))
 
 @bot.command()
-async def greet(ctx):
-    await ctx.send(":smiley: :wave: Hello, there!")
-
-bot.run('NDAxNjE2NjkxNTkyNjkxNzEz.DTt_GQ.COQRZfPaW3wT8771iRP5EnxJmAM')
+async def greet(msg):
+    await msg.send(":smiley: :wave: Hello, there!")
+    
+rin.run('NDAxNjE2NjkxNTkyNjkxNzEz.DTt_GQ.COQRZfPaW3wT8771iRP5EnxJmAM')
