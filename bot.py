@@ -8,7 +8,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 import discord
 from discord.ext import commands
 
-rin = commands.Bot(command_prefix='$')
+rin = commands.Bot(command_prefix='r!')
 
 @rin.event
 async def on_ready():
