@@ -21,5 +21,6 @@ async def on_ready():
 @rin.command()
 async def greet(msg):
     await msg.send(":smiley: :wave: Hello, there!")
-    
-rin.run('NDAxNjE2NjkxNTkyNjkxNzEz.DTt_GQ.COQRZfPaW3wT8771iRP5EnxJmAM')
+
+BOT_TOKEN = os.environ['BOT_TOKEN']
+rin.run(BOT_TOKEN)
