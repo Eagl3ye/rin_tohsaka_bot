@@ -16,11 +16,19 @@ async def on_ready():
     print("Bot:",rin.user.name)
     print("User_ID:",rin.user.id)
     print('Changing presence...')
-    await rin.change_presence(status=discord.Status.online, activity=discord.Game(name='with Daddy'))
+    await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
     print("conn = ", conn)
 @rin.command()
 async def greet(msg):
     await msg.send(":smiley: :wave: Hello, there!")
+async def access(msg):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM test;")
+    await msg.send(cur.fetchone())
+    conn.commit()
+    cur.close()
+    conn.close()
+    
 
 BOT_TOKEN = os.environ['BOT_TOKEN']
 rin.run(BOT_TOKEN)
