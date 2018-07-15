@@ -16,7 +16,7 @@ async def on_ready():
     print("Bot:",rin.user.name)
     print("User_ID:",rin.user.id)
     print('Changing presence...')
-    await rin.change_presence(status=discord.Status.idle, activity=discord.Game(name='with Daddy'))
+    await rin.change_presence(status=discord.Status.online, activity=discord.Game(name='with Daddy'))
     print("conn = ", conn)
 @rin.command()
 async def greet(msg):
