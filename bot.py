@@ -28,8 +28,6 @@ async def access(msg):
     await msg.send(cur.fetchone())
     conn.commit()
     cur.close()
-    conn.close()
     
-
 BOT_TOKEN = os.environ['BOT_TOKEN']
 rin.run(BOT_TOKEN)
