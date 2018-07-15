@@ -9,7 +9,7 @@ async def on_ready():
     print(rin.user.name)
     print(rin.user.id)
     print('------')
-    rin.change_presence(game=discord.Game(name='with Daddy'))
+    await rin.change_presence(status=discord.Status.idle, activity=discord.Game(name='with Daddy'))
     
 @rin.command()
 async def greet(msg):
