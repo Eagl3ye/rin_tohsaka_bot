@@ -1,10 +1,10 @@
 #Imports
-import asyncio                                              #ASYNCIO
-
-import discord                                              #DISCORD
+import asyncio                                              #ASYNCIO lib
+import time                                                 #TIME lib
+import discord                                              #DISCORD API lib
+from discord.ext.commands import Bot
 from discord.ext import commands
 rin = commands.Bot(command_prefix='r!')
-
 import os                                                   #DATABASE HANDLING
 import psycopg2
 DATABASE_URL = os.environ['DATABASE_URL']                   
@@ -20,24 +20,19 @@ async def on_ready():
     print("conn = ", conn)
 
 @rin.event
-@asyncio.coroutine
-def on_message(msg):
-    if msg == "hi":
-        msg.send("hello")
-
-print("Passing commands...")        
-
-@rin.command()
-async def greet(msg):
-    await msg.send(":smiley: :wave: Hello, there!")
+async def on_message(msg):
+    cmd = msg.split()[0]
+    args = msg.split()[1:]
+    if cmd == "r!wallet"
+        await msg.send("args")
 
 @rin.command()
 async def myid(msg):
     await msg.send(msg.author)
 
 @rin.command()
-async def wallet(msg):
-    await msg.send(msg.author)
+async def greet(msg):
+    await msg.send(":smiley: :wave: Hello, there!")
     
 @rin.command()
 async def access(msg):
