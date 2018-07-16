@@ -1,4 +1,6 @@
 #Imports
+import asyncio                                              #ASYNCIO
+
 import discord                                              #DISCORD
 from discord.ext import commands
 rin = commands.Bot(command_prefix='r!')
