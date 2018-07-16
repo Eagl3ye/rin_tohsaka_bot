@@ -14,14 +14,14 @@ async def on_ready():
     print("Bot:",rin.user.name)
     print("User_ID:",rin.user.id)
     print('Changing presence...')
-    await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
-    print("conn = ", conn)
+    await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))    
     
     #DATABASE HANDLING
     DATABASE_URL = os.environ['DATABASE_URL']                   
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
     cur = conn.cursor()
-
+    print("conn = ", conn)
+    
 @rin.command()
 async def wallet(msg):
     a = str(msg.message.content).split()
