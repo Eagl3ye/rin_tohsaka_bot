@@ -9,7 +9,7 @@ cur = conn.cursor()
 try:
   cur.execute("CREATE TABLE kidz (usr_id text, money integer);")
 except psycopg2.DatabaseError:
-  break
+  pass
   
 conn.commit()
 
