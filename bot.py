@@ -20,8 +20,8 @@ async def on_ready():
     print("conn = ", conn)
 
 @rin.command()
-async def wallet(msg, args):
-    await msg.send(msg.author,args)
+async def wallet(msg):
+    await msg.send(msg)
 @rin.command()
 async def myid(msg):
     await msg.send(msg.author)
