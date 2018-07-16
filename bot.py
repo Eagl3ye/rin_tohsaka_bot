@@ -21,7 +21,7 @@ async def on_ready():
 
 @rin.command()
 async def wallet(msg):
-    await msg.send(msg.message)
+    await msg.send(msg.message.content)
     
 @rin.command()
 async def myid(msg):
