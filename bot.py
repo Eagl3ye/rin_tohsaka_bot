@@ -1,14 +1,12 @@
 #Imports
-#import asyncio                                              #ASYNCIO lib
-#import time                                                 #TIME lib
-import discord                                              #DISCORD API lib
+#import asyncio                                                 #ASYNCIO lib
+#import time                                                    #TIME lib
+import discord                                                  #DISCORD API lib
 #from discord.ext.commands import Bot
 from discord.ext import commands
 rin = commands.Bot(command_prefix='r!')
-import os                                                   #DATABASE HANDLING
+import os                                                       
 import psycopg2
-DATABASE_URL = os.environ['DATABASE_URL']                   
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
 
 @rin.event
 async def on_ready():
@@ -18,10 +16,17 @@ async def on_ready():
     print('Changing presence...')
     await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
     print("conn = ", conn)
+    
+    #DATABASE HANDLING
+    DATABASE_URL = os.environ['DATABASE_URL']                   
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
+    cur = conn.cursor()
 
 @rin.command()
 async def wallet(msg):
-    await msg.send(msg.message.content)
+    a = str(msg.message.content).split()
+    await msg.send(a)
+    #cur.execute("INSERT INTO test (usr_id, money) VALUES (,))
     
 @rin.command()
 async def myid(msg):
@@ -33,7 +38,7 @@ async def greet(msg):
     
 @rin.command()
 async def access(msg):
-    cur = conn.cursor()
+    
     cur.execute("SELECT * FROM test;")
     await msg.send(cur.fetchone())
     conn.commit()
