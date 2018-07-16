@@ -16,13 +16,21 @@ async def on_ready():
     print('Changing presence...')
     await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
     print("conn = ", conn)
-    
+
+@rin.command()
+async def on_message(msg):
+    if msg == "hi":
+        msg.send("hello")
 @rin.command()
 async def greet(msg):
     await msg.send(":smiley: :wave: Hello, there!")
 
 @rin.command()
 async def myid(msg):
+    await msg.send(msg.author)
+
+@rin.command()
+async def wallet(msg):
     await msg.send(msg.author)
     
 @rin.command()
