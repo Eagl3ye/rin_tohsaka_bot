@@ -1,13 +1,20 @@
 #Imports
 #import asyncio                                                 #ASYNCIO lib
 #import time                                                    #TIME lib
-import discord                                                  #DISCORD API lib
+import os                                                       #OS lib
+
+#DISCORD API lib
+import discord                                                  
 #from discord.ext.commands import Bot
 from discord.ext import commands
 rin = commands.Bot(command_prefix='r!')
-import os                                                       
-import psycopg2
 
+#DATABASE HANDLING                                                      
+import psycopg2
+DATABASE_URL = os.environ['DATABASE_URL']                   
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
+cur = conn.cursor()
+    
 @rin.event
 async def on_ready():
     print('Logged in as...')
@@ -16,10 +23,7 @@ async def on_ready():
     print('Changing presence...')
     await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))    
     
-    #DATABASE HANDLING
-    DATABASE_URL = os.environ['DATABASE_URL']                   
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
-    cur = conn.cursor()
+    
     print("conn = ", conn)
     
 @rin.command()
