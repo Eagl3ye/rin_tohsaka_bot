@@ -8,10 +8,9 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 try:
   cur.execute("CREATE TABLE kidz (usr_id text, money integer);")
-except psycopg2.ProgrammingError:
-  pass
-  cur.execute("DROP TABLE test;")
-
+except psycopg2.DatabaseError:
+  break
+  
 conn.commit()
 
 cur.close()
