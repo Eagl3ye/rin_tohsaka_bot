@@ -18,9 +18,13 @@ async def on_ready():
     print("conn = ", conn)
 
 @rin.event
-async def on_message(msg):
+@asyncio.coroutine
+def on_message(msg):
     if msg == "hi":
         msg.send("hello")
+
+print("Passing commands...")        
+
 @rin.command()
 async def greet(msg):
     await msg.send(":smiley: :wave: Hello, there!")
