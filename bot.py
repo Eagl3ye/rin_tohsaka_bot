@@ -23,7 +23,7 @@ async def on_ready():
 async def on_message(msg):
     cmd = msg.split()[0]
     args = msg.split()[1:]
-    if cmd == "r!wallet"
+    if cmd == "r!wallet":
         await msg.send("args")
 
 @rin.command()
