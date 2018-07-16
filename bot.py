@@ -27,8 +27,7 @@ async def on_ready():
 @rin.command()
 async def create(msg):
     args = str(msg.message.content).split()[1:]
-    cur.execute("SELECT * FROM kidz;")
-    cur.execute("INSERT INTO kidz (usr_id, money) VALUES (args[0],args[1])")
+    cur.execute("INSERT INTO kidz (usr_id, money) VALUES (%s,%d)", (args[0],args[1]))
     conn.commit()
     cur.close()
     
