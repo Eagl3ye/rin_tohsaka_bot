@@ -17,7 +17,7 @@ async def on_ready():
     await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
     print("conn = ", conn)
 
-@rin.event()
+@rin.event
 async def on_message(msg):
     if msg == "hi":
         msg.send("hello")
