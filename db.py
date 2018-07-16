@@ -10,7 +10,7 @@ try:
   cur.execute("CREATE TABLE kidz (usr_id text, money integer);")
 except psycopg2.ProgrammingError:
   pass
-#cur.execute("DROP TABLE test;")
+  cur.execute("DROP TABLE test;")
 
 conn.commit()
 
