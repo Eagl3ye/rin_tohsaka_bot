@@ -25,7 +25,7 @@ async def wallet(msg):
     
 @rin.command()
 async def myid(msg):
-    await msg.send(msg.author)
+    await msg.send(msg.author.id)
 
 @rin.command()
 async def greet(msg):
