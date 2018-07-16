@@ -1,6 +1,6 @@
 #Imports
-import asyncio                                              #ASYNCIO lib
-import time                                                 #TIME lib
+#import asyncio                                              #ASYNCIO lib
+#import time                                                 #TIME lib
 import discord                                              #DISCORD API lib
 from discord.ext.commands import Bot
 from discord.ext import commands
@@ -19,13 +19,9 @@ async def on_ready():
     await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
     print("conn = ", conn)
 
-@rin.event
-async def on_message(msg):
-    #cmd = msg.split()[0]
-    #args = msg.split()[1:]
-    #if cmd == "r!wallet":
-    await msg.send("args")
-
+@rin.command()
+async def wallet(msg, args)
+    await msg.send(msg.author,args)
 @rin.command()
 async def myid(msg):
     await msg.send(msg.author)
