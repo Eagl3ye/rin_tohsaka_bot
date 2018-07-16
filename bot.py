@@ -2,7 +2,7 @@
 #import asyncio                                              #ASYNCIO lib
 #import time                                                 #TIME lib
 import discord                                              #DISCORD API lib
-from discord.ext.commands import Bot
+#from discord.ext.commands import Bot
 from discord.ext import commands
 rin = commands.Bot(command_prefix='r!')
 import os                                                   #DATABASE HANDLING
@@ -21,7 +21,8 @@ async def on_ready():
 
 @rin.command()
 async def wallet(msg):
-    await msg.send(msg)
+    await msg.send(msg.message)
+    
 @rin.command()
 async def myid(msg):
     await msg.send(msg.author)
