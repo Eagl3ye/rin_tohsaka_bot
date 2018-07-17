@@ -27,7 +27,7 @@ async def on_ready():
 @rin.command()
 async def create(msg):
     args = str(msg.message.content).split()[1:]
-    usr = args[0]
+    usr = str(args[0])
     val = args[1]
     cur.execute("INSERT INTO kidz (usr_id, mono) VALUES ({:s}, {:s});".format(usr,val))
     conn.commit()
@@ -53,9 +53,7 @@ async def greet(msg):
     
 @rin.command()
 async def access(msg):
-    
-    cur.execute("SELECT * FROM kidz;")
-    await msg.send(cur.fetchone())
+    await msg.send(cur.execute("SELECT * FROM kidz;"))
     conn.commit()
     cur.close()
     
