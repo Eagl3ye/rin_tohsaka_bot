@@ -46,7 +46,7 @@ async def wallet(msg):
 	else:
 		cur.execute("SELECT * FROM kidz WHERE usr_id = "+auth)
 		money = cur.fetchall()
-		print("\n"+money"\n")
+		print("\n"+money+"\n")
 		if money == "0":
 			await msg.send(":credit_card: | **You have no money in your wallet**")
 		else:
