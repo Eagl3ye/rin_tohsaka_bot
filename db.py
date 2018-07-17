@@ -10,10 +10,10 @@ cur = conn.cursor()
 #cur.execute("DROP TABLE kidz;")
 
 try:
-  cur.execute("CREATE TABLE kidz (usr_id text, mono text);")
+	cur.execute("CREATE TABLE kidz (id serial PRIMARY KEY, usr_id varchar, mono integer);")
 except psycopg2.DatabaseError:
-  pass
-  
+	pass
+
 conn.commit()
 
 cur.close()
