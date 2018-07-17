@@ -29,7 +29,7 @@ async def create(msg):
     args = str(msg.message.content).split()[1:]
     usr = args[0]
     val = args[1]
-    cur.execute("INSERT INTO kidz (usr_id, mono) VALUES ({},{});".format(usr,val))
+    cur.execute("INSERT INTO kidz (usr_id, mono) VALUES ({:s},{:d});".format(usr,val))
     conn.commit()
     cur.close()
     
