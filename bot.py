@@ -64,12 +64,12 @@ async def access(msg):
 		try:
 			cur.execute("SELECT * FROM kidz;")
 			dataset = (cur.fetchall())
-			rblock = "```| BANK ACCOUNTS |\n"
+			embed = discord.Embed(title=|| BANK ACCOUNTS, color=0xff2020) #rblock = "```| BANK ACCOUNTS |\n"
 			for data in dataset:
-				respond = ("\n" + str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
-				rblock = rblock + respond	
-				print(respond)
-			await msg.send(rblock + "```")
+				embed.add_field(name="[ "+str(data[0])+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False) #respond = ("\n" + str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
+				#rblock = rblock + respond	
+				#print(respond)
+			await msg.send(embed=embed)#await msg.send(rblock + "```")
 			conn.commit()
 		except psycopg2.InternalError:
 			#conn.rollback()
