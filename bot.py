@@ -39,18 +39,24 @@ async def create(msg):
 		pass
 @bot.command()
 async def wallet(msg):
-	args = str(msg.message.content).split()[1:]
-	#if count(args) > 1:
-		#code
-	#else:
-		#show wallet
-	await msg.send(args[1:])
+	args = str(msg.message.content).split()
+	auth = "<@"+str(msg.author.id)+">"
+	if count(args) > 1:
+		pass
+	else:
+		cur.execute("SELECT mono FROM kidz WHERE usr_id = %s",(auth))
+		money = int(str(cur.fetchone()))
+		if money == 0:
+			msg.send(":credit_card: | **You have no money in your wallet**")
+		else:
+			msg.send(":credit_card: | **You have %s credits in your wallet**",(money))
+	#await msg.send(args[1:])
 	#cur.execute("INSERT INTO test (usr_id, money) VALUES (,))
 	
 @bot.command()
 async def myid(msg):
 	await msg.send(msg.author.id)
-
+	await msg.send(hash(msg.author.id))
 @bot.command()
 async def greet(msg):
 	await msg.send(":smiley: :wave: Hello, there!")
@@ -64,7 +70,7 @@ async def access(msg):
 		try:
 			cur.execute("SELECT * FROM kidz;")
 			dataset = (cur.fetchall())
-			embed = discord.Embed(title="|| BANK ACCOUNTS", color=0xff2020)) #rblock = "```| BANK ACCOUNTS |\n"
+			embed = discord.Embed(title="|| BANK ACCOUNTS", color=0xff2020) #rblock = "```| BANK ACCOUNTS |\n"
 			for data in dataset:
 				embed.add_field(name="[ "+str(data[0])+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False) #respond = ("\n" + str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
 				#rblock = rblock + respond	
