@@ -25,6 +25,7 @@ async def create(msg):
 	#cur.execute("INSERT INTO kidz (usr_id, mono) VALUES ({:s}, {:s});".format(usr,val))
 	cur.execute("INSERT INTO kidz (usr_id, mono) VALUES (%s, %s);",(usr, val))
 	print("INSERTED the VALUES INTO TABLE kidz...")
+	print("UserID:",usr," | Value:",str(val))
 	conn.commit()
 	
 @bot.command()
@@ -49,6 +50,7 @@ async def greet(msg):
 async def access(msg):
 	cur.execute("SELECT usr_id FROM kidz;")
 	a = (cur.fetchall())
+	print("UserID:",a)
 	await msg.send(a)
 	conn.commit()
 	
