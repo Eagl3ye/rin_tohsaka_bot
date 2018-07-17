@@ -16,7 +16,7 @@ async def on_ready():
 	print('Changing presence...')
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))    
 	print("conn = ", conn)
-
+	
 @bot.command()
 async def create(msg):
 	if(msg.author.id == 336068309789310979):
