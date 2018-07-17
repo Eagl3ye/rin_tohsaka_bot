@@ -7,7 +7,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 cur = conn.cursor()
 try:
-  cur.execute("ALTER TABLE kidz (usr_id text, money int(16));")
+  cur.execute("ALTER TABLE kidz (usr_id text, mono text);")
 except psycopg2.DatabaseError:
   pass
   
