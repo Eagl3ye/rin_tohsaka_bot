@@ -48,7 +48,7 @@ async def greet(msg):
 @bot.command()
 async def access(msg):
 	cur.execute("SELECT usr_id FROM kidz;")
-	a = (cur.fetchone())[0]
+	a = (cur.fetchall())
 	await msg.send(a)
 	conn.commit()
 	
