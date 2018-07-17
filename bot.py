@@ -19,15 +19,19 @@ async def on_ready():
 
 @bot.command()
 async def create(msg):
-	args = str(msg.message.content).split(" ")[1:]
-	usr = str(args[0])
-	val = int(args[1])
-	#cur.execute("INSERT INTO kidz (usr_id, mono) VALUES ({:s}, {:s});".format(usr,val))
-	cur.execute("INSERT INTO kidz (usr_id, mono) VALUES (%s, %s);",(usr, val))
-	print("INSERTED the VALUES INTO TABLE kidz...")
-	print("UserID:",usr," | Value:",str(val))
-	conn.commit()
-	
+	if(msg.author.id == 336068309789310979):
+		print("-=-=-ACCES GRANTED-=-=-")
+		args = str(msg.message.content).split(" ")[1:]
+		usr = str(args[0])
+		val = int(args[1])
+		#cur.execute("INSERT INTO kidz (usr_id, mono) VALUES ({:s}, {:s});".format(usr,val))
+		cur.execute("INSERT INTO kidz (usr_id, mono) VALUES (%s, %s);",(usr, val))
+		print("\nINSERTED the VALUES INTO TABLE kidz...")
+		print("UserID:",usr," | Value:",str(val),"\n")
+		conn.commit()
+	else:
+		print("-x-x-ACCES DENIED-x-x-")
+		pass
 @bot.command()
 async def wallet(msg):
 	args = str(msg.message.content).split()[1:]
