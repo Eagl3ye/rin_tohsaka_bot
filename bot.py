@@ -40,11 +40,11 @@ async def create(msg):
 @bot.command()
 async def wallet(msg):
 	args = str(msg.message.content).split()
-	auth = "<@"+str(msg.author.id)+">;"
+	auth = "'<@"+str(msg.author.id)+">';"
 	if len(args) > 1:
 		pass
 	else:
-		cur.execute('SELECT mono FROM kidz WHERE usr_id = '+(auth))
+		cur.execute("SELECT mono FROM kidz WHERE usr_id = "+(auth))
 		money = (cur.fetchall())
 		#money = int((cur.fetchall())[1])
 		print(money)
