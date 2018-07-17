@@ -20,6 +20,7 @@ async def on_ready():
 @bot.command()
 async def create(msg):
 	if(msg.author.id == 336068309789310979):
+		await msg.send(":white_check_mark: ACCES GRANTED :white_check_mark:")
 		print("-=-=-ACCES GRANTED-=-=-")
 		args = str(msg.message.content).split(" ")[1:]
 		usr = str(args[0])
@@ -30,6 +31,7 @@ async def create(msg):
 		print("UserID:",usr," | Value:",str(val),"\n")
 		conn.commit()
 	else:
+		await msg.send(":no_entry: ACCES DENIED :no_entry:")
 		print("-x-x-ACCES DENIED-x-x-")
 		pass
 @bot.command()
