@@ -46,6 +46,9 @@ async def wallet(msg):
 	else:
 		cur.execute("SELECT mono FROM kidz WHERE usr_id = "+(auth))
 		money = (cur.fetchall())
+		if money is None:
+			auth = "'<@!"+str(msg.author.id)+">';"
+			cur.execute("SELECT mono FROM kidz WHERE usr_id = "+(auth))
 		#money = int((cur.fetchall())[1])
 		print(money)
 		if money == 0:
