@@ -66,10 +66,10 @@ async def access(msg):
 			dataset = (cur.fetchall())
 			rblock = "```| BANK ACCOUNTS |\n"
 			for data in dataset:
-				respond = (str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
+				respond = ("\n" + str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
 				rblock = rblock + respond	
 				print(respond)
-			await msg.send(rblock)
+			await msg.send(rblock + "```")
 			conn.commit()
 		except psycopg2.InternalError:
 			#conn.rollback()
