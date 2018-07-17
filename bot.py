@@ -46,8 +46,8 @@ async def wallet(msg):
 		pass
 	else:
 		cur.execute("SELECT mono FROM kidz WHERE usr_id = "+auth)
-		money = int(str(cur.fetchone()))
-		if money == 0:
+		money = str(cur.fetchone())
+		if money == "0":
 			msg.send(":credit_card: | **You have no money in your wallet**")
 		else:
 			msg.send(":credit_card: | **You have %s credits in your wallet**",(str(money)))
