@@ -40,18 +40,18 @@ async def create(msg):
 @bot.command()
 async def wallet(msg):
 	args = str(msg.message.content).split()
-	auth = "'<@"+str(msg.author.id)+">';"
+	auth = "'%"+str(msg.author.id)+">%';"
 	if len(args) > 1:
 		pass
 	else:
-		cur.execute("SELECT * FROM kidz;")
-		profile = (cur.fetchall())
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
+		money = (cur.fetchall())
 		#money = int((cur.fetchall())[1])
-		print(profile)
-		#if money == 0:
-		#	await msg.send(":credit_card: | **You have no money in your wallet**")
-		#else:
-		#	await msg.send(":credit_card: | **You have {} credits in your wallet**".format(money))
+		print(money)
+		if money == 0:
+			await msg.send(":credit_card: | **You have no money in your wallet**")
+		else:
+			await msg.send(":credit_card: | **You have {} credits in your wallet**".format(money))
 		conn.commit()
 	#await msg.send(args[1:])
 	#cur.execute("INSERT INTO test (usr_id, money) VALUES (,))
