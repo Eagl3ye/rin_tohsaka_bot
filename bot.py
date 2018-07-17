@@ -7,7 +7,13 @@ import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']                   
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
 cur = conn.cursor()
-	
+
+def acgrant():
+	await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
+	print("-=-=-ACCESS GRANTED-=-=-")
+def acdeny():
+	await msg.send(":no_entry: ACCESS DENIED :no_entry:")
+	print("-x-x-ACCESS DENIED-x-x-")
 @bot.event
 async def on_ready():
 	print('Logged in as...')
@@ -20,20 +26,19 @@ async def on_ready():
 @bot.command()
 async def create(msg):
 	if(msg.author.id == 336068309789310979):
-		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
-		print("-=-=-ACCESS GRANTED-=-=-")
-		
-		args = str(msg.message.content).split(" ")[1:]
-		usr = str(args[0])
-		val = int(args[1])
-		#cur.execute("INSERT INTO kidz (usr_id, mono) VALUES ({:s}, {:s});".format(usr,val))
-		cur.execute("INSERT INTO kidz (usr_id, mono) VALUES (%s, %s);",(usr, val))
-		print("\nINSERTED the VALUES INTO TABLE kidz...")
-		print("UserID:",usr," | Value:",str(val),"\n")
-		conn.commit()
+		acgrant()
+		try:
+			args = str(msg.message.content).split(" ")[1:]
+			usr = str(args[0]), val = int(args[1])
+			cur.execute("INSERT INTO kidz (usr_id, mono) VALUES (%s, %s);",(usr, val))
+			print("\nINSERTED the VALUES INTO TABLE kidz...")
+			print("UserID:",usr," | Value:",str(val),"\n")
+			conn.commit()
+		except psycopg2.IntegrityError:
+			await msg.send(":lock: | Username already exists. Try again")
+			pass
 	else:
-		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
-		print("-x-x-ACCESS DENIED-x-x-")
+		acdeny()
 		pass
 @bot.command()
 async def wallet(msg):
@@ -56,17 +61,17 @@ async def greet(msg):
 @bot.command()
 async def access(msg):
 	if(msg.author.id == 336068309789310979):
-		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
-		print("-=-=-ACCESS GRANTED-=-=-")
-
-		cur.execute("SELECT usr_id FROM kidz;")
-		a = (cur.fetchall())
-		print("UserID:",a)
-		await msg.send(a)
+		acgrant()
+		
+		cur.execute("SELECT * FROM kidz;")
+		dataset = (cur.fetchall())
+		for data in dataset:
+			respond = ("UserID: " + str(data[0]) +"\nValue: " + str(data[1])) 
+			print(respond)
+			await msg.send(respond)
 		conn.commit()
 	else:
-		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
-		print("-x-x-ACCESS DENIED-x-x-")
+		acdeny()
 		pass
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
