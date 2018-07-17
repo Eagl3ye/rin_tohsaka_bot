@@ -53,7 +53,9 @@ async def greet(msg):
     
 @rin.command()
 async def access(msg):
-    await msg.send(cur.execute("SELECT * FROM kidz;"))
+    
+    cur.execute("SELECT * FROM kidz;")
+    await msg.send(str(cur.fetchall())
     conn.commit()
     cur.close()
     
