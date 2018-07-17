@@ -31,7 +31,6 @@ async def create(msg):
 			conn.commit()
 		except psycopg2.IntegrityError:
 			await msg.send(":lock: | Username already exists. Try again")
-		finally:
 			conn.rollback()
 			pass
 	else:
@@ -71,7 +70,7 @@ async def access(msg):
 				await msg.send(respond)
 			conn.commit()
 		except psycopg2.InternalError:
-			conn.rollback()
+			#conn.rollback()
 			pass
 	else:
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
