@@ -41,7 +41,7 @@ async def create(msg):
 async def wallet(msg):
 	args = str(msg.message.content).split()
 	auth = "<@"+str(msg.author.id)+">"
-	if count(args) > 1:
+	if len(args) > 1:
 		pass
 	else:
 		cur.execute("SELECT mono FROM kidz WHERE usr_id = %s",(auth))
