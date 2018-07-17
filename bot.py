@@ -64,10 +64,12 @@ async def access(msg):
 		try:
 			cur.execute("SELECT * FROM kidz;")
 			dataset = (cur.fetchall())
+			rblock = "```| BANK ACCOUNTS |\n"
 			for data in dataset:
-				respond = (str(data[0]) + "\n | UserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
+				respond = (str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
+				rblock = rblock + respond	
 				print(respond)
-				await msg.send(respond)
+			await msg.send(rblock)
 			conn.commit()
 		except psycopg2.InternalError:
 			#conn.rollback()
