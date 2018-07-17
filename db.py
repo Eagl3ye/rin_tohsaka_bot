@@ -14,5 +14,4 @@ except psycopg2.DatabaseError:
 	pass
 
 conn.commit()
-cur.close()
 conn.close()
