@@ -55,7 +55,7 @@ async def greet(msg):
 @rin.command()
 async def access(msg):
 	cur.execute("SELECT * FROM kidz;")
-	a = (cur.fetchone())[0]
+	a = (cur.fetchone())[1]
 	await msg.send(a)
 	conn.commit()
 	
