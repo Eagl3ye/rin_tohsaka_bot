@@ -64,7 +64,7 @@ async def access(msg):
 		try:
 			cur.execute("SELECT * FROM kidz;")
 			dataset = (cur.fetchall())
-			embed = discord.Embed(title="|| BANK ACCOUNTS, color=0xff2020)" #rblock = "```| BANK ACCOUNTS |\n"
+			embed = discord.Embed(title="|| BANK ACCOUNTS, color=0xff2020)") #rblock = "```| BANK ACCOUNTS |\n"
 			for data in dataset:
 				embed.add_field(name="[ "+str(data[0])+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False) #respond = ("\n" + str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
 				#rblock = rblock + respond	
