@@ -60,13 +60,16 @@ async def access(msg):
 		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
 		print("-=-=-ACCESS GRANTED-=-=-")
 
-		cur.execute("SELECT * FROM kidz;")
-		dataset = (cur.fetchall())
-		for data in dataset:
-			respond = (str(data[0]) + "\n | UserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
-			print(respond)
-			await msg.send(respond)
-		conn.commit()
+		try:
+			cur.execute("SELECT * FROM kidz;")
+			dataset = (cur.fetchall())
+			for data in dataset:
+				respond = (str(data[0]) + "\n | UserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
+				print(respond)
+				await msg.send(respond)
+			conn.commit()
+		except psycopg2.InternalError:
+			pass
 	else:
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
 		print("-x-x-ACCESS DENIED-x-x-")
