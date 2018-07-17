@@ -46,11 +46,12 @@ async def wallet(msg):
 		pass
 	else:
 		cur.execute("SELECT mono FROM kidz WHERE usr_id = "+auth)
-		money = str(cur.fetchone())
+		money = cur.fetchall()
+		print("\nmoney\n")
 		if money == "0":
 			await msg.send(":credit_card: | **You have no money in your wallet**")
 		else:
-			await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(money))
+			await msg.send(":credit_card: | **You have {} credits in your wallet**".format(money))
 	#await msg.send(args[1:])
 	#cur.execute("INSERT INTO test (usr_id, money) VALUES (,))
 	
