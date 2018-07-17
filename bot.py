@@ -31,11 +31,13 @@ async def create(msg):
 			conn.commit()
 		except psycopg2.IntegrityError:
 			await msg.send(":lock: | Username already exists. Try again")
-			return None
+		finally:
+			conn.rollback()
+			pass
 	else:
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
 		print("-x-x-ACCESS DENIED-x-x-")
-		return None
+		pass
 @bot.command()
 async def wallet(msg):
 	args = str(msg.message.content).split()[1:]
@@ -69,10 +71,11 @@ async def access(msg):
 				await msg.send(respond)
 			conn.commit()
 		except psycopg2.InternalError:
-			return None
+			conn.rollback()
+			pass
 	else:
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
 		print("-x-x-ACCESS DENIED-x-x-")
-		return None
+		pass
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
