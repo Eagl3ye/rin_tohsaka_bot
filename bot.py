@@ -8,12 +8,6 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
 cur = conn.cursor()
 
-def acgrant(arg):
-	await arg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
-	print("-=-=-ACCESS GRANTED-=-=-")
-def acdeny(arg):
-	await arg.send(":no_entry: ACCESS DENIED :no_entry:")
-	print("-x-x-ACCESS DENIED-x-x-")
 @bot.event
 async def on_ready():
 	print('Logged in as...')
@@ -26,7 +20,8 @@ async def on_ready():
 @bot.command()
 async def create(msg):
 	if(msg.author.id == 336068309789310979):
-		acgrant(msg)
+		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
+		print("-=-=-ACCESS GRANTED-=-=-")
 		try:
 			args = str(msg.message.content).split(" ")[1:]
 			usr = str(args[0]), val = int(args[1])
@@ -38,7 +33,8 @@ async def create(msg):
 			await msg.send(":lock: | Username already exists. Try again")
 			pass
 	else:
-		acdeny(msg)
+		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
+		print("-x-x-ACCESS DENIED-x-x-")
 		pass
 @bot.command()
 async def wallet(msg):
@@ -61,8 +57,9 @@ async def greet(msg):
 @bot.command()
 async def access(msg):
 	if(msg.author.id == 336068309789310979):
-		acgrant(msg)
-		
+		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
+		print("-=-=-ACCESS GRANTED-=-=-")
+
 		cur.execute("SELECT * FROM kidz;")
 		dataset = (cur.fetchall())
 		for data in dataset:
@@ -71,7 +68,8 @@ async def access(msg):
 			await msg.send(respond)
 		conn.commit()
 	else:
-		acdeny(msg)
+		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
+		print("-x-x-ACCESS DENIED-x-x-")
 		pass
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
