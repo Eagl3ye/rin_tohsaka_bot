@@ -50,6 +50,7 @@ async def wallet(msg):
 			await msg.send(":credit_card: | **You have no money in your wallet**")
 		else:
 			await msg.send(":credit_card: | **You have {} credits in your wallet**".format(money))
+		conn.commit()
 	#await msg.send(args[1:])
 	#cur.execute("INSERT INTO test (usr_id, money) VALUES (,))
 	
