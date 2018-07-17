@@ -40,7 +40,7 @@ async def create(msg):
 @bot.command()
 async def wallet(msg):
 	args = str(msg.message.content).split()
-	auth = "<@"+str(msg.author.id)+">"
+	auth = "<@"+str(msg.author.id)+">;"
 	if len(args) > 1:
 		pass
 	else:
