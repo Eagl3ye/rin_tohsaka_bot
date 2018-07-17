@@ -24,7 +24,7 @@ async def create(msg):
 		print("-=-=-ACCESS GRANTED-=-=-")
 		try:
 			args = str(msg.message.content).split(" ")[1:]
-			usr = str(args[0]), val = int(args[1])
+			usr, val = str(args[0]), int(args[1])
 			cur.execute("INSERT INTO kidz (usr_id, mono) VALUES (%s, %s);",(usr, val))
 			print("\nINSERTED the VALUES INTO TABLE kidz...")
 			print("UserID:",usr," | Value:",str(val),"\n")
