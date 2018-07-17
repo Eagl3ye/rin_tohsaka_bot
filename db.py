@@ -5,13 +5,11 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
-cur.execute("ALTER TABLE kidz;")
-cur.execute("ADD UNIQUE (usr_id);")
-#try:
-#	cur.execute("CREATE TABLE kidz (id serial PRIMARY KEY, usr_id text, mono integer);")
-#	print("\n\nCREATED TABLE NAMED kidz...\n\n")
-#except psycopg2.DatabaseError:
-#	pass
+try:
+	cur.execute("CREATE TABLE kidz (id serial PRIMARY KEY, usr_id text UNIQUE, mono integer);")
+	print("\n\nCREATED TABLE NAMED kidz...\n\n")
+except psycopg2.DatabaseError:
+	pass
 
 conn.commit()
 conn.close()

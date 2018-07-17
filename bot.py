@@ -16,12 +16,13 @@ async def on_ready():
 	print('Changing presence...')
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))    
 	print("conn = ", conn)
-	
+
 @bot.command()
 async def create(msg):
 	if(msg.author.id == 336068309789310979):
-		await msg.send(":white_check_mark: ACCES GRANTED :white_check_mark:")
-		print("-=-=-ACCES GRANTED-=-=-")
+		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
+		print("-=-=-ACCESS GRANTED-=-=-")
+		
 		args = str(msg.message.content).split(" ")[1:]
 		usr = str(args[0])
 		val = int(args[1])
@@ -31,8 +32,8 @@ async def create(msg):
 		print("UserID:",usr," | Value:",str(val),"\n")
 		conn.commit()
 	else:
-		await msg.send(":no_entry: ACCES DENIED :no_entry:")
-		print("-x-x-ACCES DENIED-x-x-")
+		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
+		print("-x-x-ACCESS DENIED-x-x-")
 		pass
 @bot.command()
 async def wallet(msg):
@@ -54,11 +55,18 @@ async def greet(msg):
 	
 @bot.command()
 async def access(msg):
-	cur.execute("SELECT usr_id FROM kidz;")
-	a = (cur.fetchall())
-	print("UserID:",a)
-	await msg.send(a)
-	conn.commit()
-	
+	if(msg.author.id == 336068309789310979):
+		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
+		print("-=-=-ACCESS GRANTED-=-=-")
+
+		cur.execute("SELECT usr_id FROM kidz;")
+		a = (cur.fetchall())
+		print("UserID:",a)
+		await msg.send(a)
+		conn.commit()
+	else:
+		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
+		print("-x-x-ACCESS DENIED-x-x-")
+		pass
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
