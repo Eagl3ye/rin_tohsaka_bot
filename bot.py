@@ -55,7 +55,7 @@ async def greet(msg):
 async def access(msg):
     
     cur.execute("SELECT * FROM kidz;")
-    await msg.send(str(cur.fetchall())
+    await msg.send(cur.fetchall())
     conn.commit()
     cur.close()
     
