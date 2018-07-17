@@ -1,30 +1,23 @@
 #Imports
-#import asyncio                                                 #ASYNCIO lib
-#import time                                                    #TIME lib
 import os                                                       #OS lib
-
-#DISCORD API lib
-import discord                                                  
-#from discord.ext.commands import Bot
+import discord                                                  #DISCORD API lib
 from discord.ext import commands
-rin = commands.Bot(command_prefix='r!')
-
-#DATABASE HANDLING                                                      
-import psycopg2
+bot = commands.Bot(command_prefix='r!')
+import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']                   
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
 cur = conn.cursor()
 	
-@rin.event
+@bot.event
 async def on_ready():
 	print('Logged in as...')
-	print("Bot:",rin.user.name)
-	print("User_ID:",rin.user.id)
+	print("Bot:",bot.user.name)
+	print("User_ID:",bot.user.id)
 	print('Changing presence...')
-	await rin.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))    
+	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))    
 	print("conn = ", conn)
 
-@rin.command()
+@bot.command()
 async def create(msg):
 	args = str(msg.message.content).split(" ")[1:]
 	usr = str(args[0])
@@ -34,7 +27,7 @@ async def create(msg):
 	print("INSERTED the VALUES INTO TABLE kidz...")
 	conn.commit()
 	
-@rin.command()
+@bot.command()
 async def wallet(msg):
 	args = str(msg.message.content).split()[1:]
 	#if count(args) > 1:
@@ -44,15 +37,15 @@ async def wallet(msg):
 	await msg.send(args[1:])
 	#cur.execute("INSERT INTO test (usr_id, money) VALUES (,))
 	
-@rin.command()
+@bot.command()
 async def myid(msg):
 	await msg.send(msg.author.id)
 
-@rin.command()
+@bot.command()
 async def greet(msg):
 	await msg.send(":smiley: :wave: Hello, there!")
 	
-@rin.command()
+@bot.command()
 async def access(msg):
 	cur.execute("SELECT * FROM kidz;")
 	a = (cur.fetchone())[1]
@@ -60,4 +53,4 @@ async def access(msg):
 	conn.commit()
 	
 BOT_TOKEN = os.environ['BOT_TOKEN']
-rin.run(BOT_TOKEN)
+bot.run(BOT_TOKEN)
