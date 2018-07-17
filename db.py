@@ -9,10 +9,10 @@ cur = conn.cursor()
 
 #cur.execute("DROP TABLE kidz;")
 
-#try:
-#  cur.execute("ALTER TABLE kidz (usr_id text, mono text);")
-#except psycopg2.DatabaseError:
-#  pass
+try:
+  cur.execute("CREATE TABLE kidz (usr_id text, mono text);")
+except psycopg2.DatabaseError:
+  pass
   
 conn.commit()
 
