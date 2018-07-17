@@ -31,6 +31,7 @@ async def create(msg):
 	val = int(args[1])
 	#cur.execute("INSERT INTO kidz (usr_id, mono) VALUES ({:s}, {:s});".format(usr,val))
 	cur.execute("INSERT INTO kidz (usr_id, mono) VALUES (%s, %s);",(usr, val))
+	print("INSERTED the VALUES INTO TABLE kidz...")
 	conn.commit()
 	
 @rin.command()
@@ -54,7 +55,8 @@ async def greet(msg):
 @rin.command()
 async def access(msg):
 	cur.execute("SELECT * FROM kidz;")
-	await msg.send(cur.fetchall())
+	a = (cur.fetchone())[0]
+	await msg.send(a)
 	conn.commit()
 	
 BOT_TOKEN = os.environ['BOT_TOKEN']
