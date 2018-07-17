@@ -63,7 +63,7 @@ async def access(msg):
 		cur.execute("SELECT * FROM kidz;")
 		dataset = (cur.fetchall())
 		for data in dataset:
-			respond = (str(data[0])" | UserID: " + str(data[1]) +"\nValue: " + str(data[2])) 
+			respond = (str(data[0])"\n | UserID: " + str(data[1]) +"\nValue: " + str(data[2])) 
 			print(respond)
 			await msg.send(respond)
 		conn.commit()
