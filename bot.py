@@ -41,13 +41,12 @@ async def create(msg):
 async def wallet(msg):
 	args = str(msg.message.content).split()
 	auth = "'<@"+str(msg.author.id)+">';"
-	print(type(auth))
 	if len(args) > 1:
 		pass
 	else:
-		cur.execute("SELECT mono FROM kidz WHERE usr_id = "+auth)
+		cur.execute("SELECT * FROM kidz WHERE usr_id = "+auth)
 		money = cur.fetchall()
-		print("\nmoney\n")
+		print("\n"+money"\n")
 		if money == "0":
 			await msg.send(":credit_card: | **You have no money in your wallet**")
 		else:
