@@ -79,6 +79,7 @@ async def greet(msg):
 		await msg.send(":smiley: :wave: Hello, there!")
 	except CommandOnCooldown as e:
 		raise e
+		msg.send(e)
 
 @bot.command()
 async def access(msg):
