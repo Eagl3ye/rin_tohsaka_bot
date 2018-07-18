@@ -49,6 +49,8 @@ async def wallet(msg):
 		print("MONEY: ",money)
 		if money == 0:
 			await msg.send(":credit_card: | **You have no money in your wallet**")
+		elif money == 1:
+			await msg.send(":credit_card: | **You have {:s} credit in your wallet**".format(str(money)))
 		else:
 			await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
 		conn.commit()
