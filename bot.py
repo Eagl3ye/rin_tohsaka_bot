@@ -39,15 +39,14 @@ async def create(msg):
 		pass
 @bot.command()
 async def wallet(msg):
-	args = str(msg.message.content).split()
-	print("\n\nARGS: ",args[1])
+	args = str(msg.message.content).split(" ")
 	auth = "'%"+str(msg.author.id)+">%';"
 	ctxlen = len(args)
 	if ctxlen > 1:
 		
-		auth = "'%"+str(args[1])[3:-2]+"%';"
+		auth = "'%"+str(args[0])[3:-2]+"%';"
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
-		money = cur.fetchall()
+		money = int((cur.fetchall())[0][0])
 		if money == 0:
 			await msg.send(":credit_card: | **He/She has no credits in his/her wallet**")
 		elif money == 1:
