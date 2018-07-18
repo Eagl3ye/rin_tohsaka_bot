@@ -43,34 +43,33 @@ async def wallet(msg):
 	args = str(msg.message.content).split(" ")
 	auth = "'%"+str(msg.author.id)+">%';"
 	ctxlen = len(args)
-	print(str(args[1]))
-	#if ctxlen > 1:	
-	#	auth = "'%"+str(args[0])[3:-2]+"%';"
-	#	cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
-	#	money = (cur.fetchall())
-	#	if money == 0:
-	#		await msg.send(":credit_card: | **He/She has no credits in his/her wallet**")
-	#	elif money == 1:
-	#		await msg.send(":credit_card: | **He/She has {:s} credit in his/her wallet**".format(str(money)))
-	#	else:
-	#		await msg.send(":credit_card: | **He/She has {:s} credits in his/her wallet**".format(str(money)))
-	#	conn.commit()
-	#else:
-	#	cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
-	#	money = int((cur.fetchall())[0][0])
-	#	if money == 0:
-	#		await msg.send(":credit_card: | **You have no credits in your wallet**")
-	#	elif money == 1:
-	#		await msg.send(":credit_card: | **You have {:s} credit in your wallet**".format(str(money)))
-	#	else:
-	#		await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
-	#	conn.commit()
+	if ctxlen > 1:	
+		auth = "'%"+str(args[0])[3:-1]+"%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
+		money = (cur.fetchall())
+		if money == 0:
+			await msg.send(":credit_card: | **He/She has no credits in his/her wallet**")
+		elif money == 1:
+			await msg.send(":credit_card: | **He/She has {:s} credit in his/her wallet**".format(str(money)))
+		else:
+			await msg.send(":credit_card: | **He/She has {:s} credits in his/her wallet**".format(str(money)))
+		conn.commit()
+	else:
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
+		money = int((cur.fetchall())[0][0])
+		if money == 0:
+			await msg.send(":credit_card: | **You have no credits in your wallet**")
+		elif money == 1:
+			await msg.send(":credit_card: | **You have {:s} credit in your wallet**".format(str(money)))
+		else:
+			await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
+		conn.commit()
 	
 @bot.command()
 async def myid(msg):
 	args = str(msg.message.content).split()
 	await msg.send(msg.author.id)
-	print((str(args[1]))[2:-1])
+	print((str(args[1]))[3:-1])
 	
 @bot.command()
 async def greet(msg):
