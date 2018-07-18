@@ -10,6 +10,7 @@ try:
 	cur.execute("CREATE TABLE kidz (id serial PRIMARY KEY, usr_id text UNIQUE, mono integer);")
 	print("\n\nCREATED TABLE NAMED kidz...\n\n")
 except psycopg2.DatabaseError:
+	conn.rollback()
 	pass
 
 cur.execute("SELECT * FROM kidz ORDER BY id;")
