@@ -1,5 +1,6 @@
 #Imports
 import os                                                       #OS lib
+import time														#TIME
 import discord                                                  #DISCORD API lib
 from discord.ext import commands
 bot = commands.Bot(command_prefix='r!')
@@ -75,10 +76,13 @@ async def myid(msg):
 @bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def greet(msg):
+	a, o = 0, 0
 	try:
+		a = time.time()
 		await msg.send(":smiley: :wave: Hello, there!")
 	except Exception as e:
-		await msg.send(str(e))
+		o = time.time()
+		await msg.send("{}s".format(o - a))
 
 @bot.command()
 async def access(msg):
