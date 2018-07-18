@@ -77,9 +77,8 @@ async def myid(msg):
 async def greet(msg):
 	try:
 		await msg.send(":smiley: :wave: Hello, there!")
-	except CommandOnCooldown as e:
-		raise e
-		msg.send(e)
+	except Exception as e:
+		await msg.send(str(e))
 
 @bot.command()
 async def access(msg):
