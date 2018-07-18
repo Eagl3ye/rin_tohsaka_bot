@@ -37,6 +37,7 @@ async def create(msg):
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
 		print("-x-x-ACCESS DENIED-x-x-")
 		pass
+
 @bot.command()
 async def wallet(msg):
 	args = str(msg.message.content).split(" ")
@@ -67,8 +68,10 @@ async def wallet(msg):
 	
 @bot.command()
 async def myid(msg):
+	args = str(msg.message.content).split(" ")
 	await msg.send(msg.author.id)
-	await msg.send(str(msg.author.id))
+	print(args)
+	
 @bot.command()
 async def greet(msg):
 	await msg.send(":smiley: :wave: Hello, there!")
