@@ -13,9 +13,9 @@ async def on_ready():
 	print('Logged in as...')
 	print("Bot:",bot.user.name)
 	print("User_ID:",bot.user.id)
-	print('Changing presence...')
-	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))    
 	print("conn = ", conn)
+	print('Changing presence...')
+	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
 @bot.command()
 async def create(msg):
@@ -41,21 +41,19 @@ async def create(msg):
 async def wallet(msg):
 	args = str(msg.message.content).split()
 	auth = "'%"+str(msg.author.id)+">%';"
-	if len(args) > 1:
-		pass
+	ctxlen = len(args)
+	if ctxlen > 1:
+		auth = "'%"+str(args[1])+">%';"
+	cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
+	money = int((cur.fetchall())[0][0])
+	print("MONEY: ",money)
+	if money == 0:
+		await msg.send(":credit_card: | **You have no money in your wallet**")
+	elif money == 1:
+		await msg.send(":credit_card: | **You have {:s} credit in your wallet**".format(str(money)))
 	else:
-		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
-		money = int((cur.fetchall())[0][0])
-		print("MONEY: ",money)
-		if money == 0:
-			await msg.send(":credit_card: | **You have no money in your wallet**")
-		elif money == 1:
-			await msg.send(":credit_card: | **You have {:s} credit in your wallet**".format(str(money)))
-		else:
-			await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
-		conn.commit()
-	#await msg.send(args[1:])
-	#cur.execute("INSERT INTO test (usr_id, money) VALUES (,))
+		await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
+	conn.commit()
 	
 @bot.command()
 async def myid(msg):
@@ -74,12 +72,10 @@ async def access(msg):
 		try:
 			cur.execute("SELECT * FROM kidz;")
 			dataset = (cur.fetchall())
-			embed = discord.Embed(title="|| BANK ACCOUNTS", color=0xff2020) #rblock = "```| BANK ACCOUNTS |\n"
+			embed = discord.Embed(title="|| BANK ACCOUNTS", color=0xff2020)
 			for tag, data in enumerate(dataset):
-				embed.add_field(name="[ "+(str(tag+1))+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False) #respond = ("\n" + str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
-				#rblock = rblock + respond	
-				#print(respond)
-			await msg.send(embed=embed)#await msg.send(rblock + "```")
+				embed.add_field(name="[ "+(str(tag+1))+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False)
+			await msg.send(embed=embed)
 			conn.commit()
 		except psycopg2.InternalError:
 			#conn.rollback()
