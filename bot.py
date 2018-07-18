@@ -76,13 +76,10 @@ async def myid(msg):
 @bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def greet(msg):
-	a, o = 0, 0
 	try:
-		a = time.time()
 		await msg.send(":smiley: :wave: Hello, there!")
 	except Exception as e:
-		o = time.time()
-		await msg.send("{}s".format(o - a))
+		await msg.send(CommandOnCooldown(bucket, retry_after))
 
 @bot.command()
 async def access(msg):
