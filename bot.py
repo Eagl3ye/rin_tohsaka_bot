@@ -46,7 +46,7 @@ async def wallet(msg):
 	if ctxlen > 1:	
 		auth = "'%"+str(args[0])[3:-1]+"%';"
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
-		money = (cur.fetchall())
+		money = int((cur.fetchall())[0][0])
 		if money == 0:
 			await msg.send(":credit_card: | **He/She has no credits in his/her wallet**")
 		elif money == 1:
