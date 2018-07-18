@@ -18,11 +18,6 @@ async def on_ready():
 	print('Changing presence...')
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
-@bot.event
-async def on_command_error(error, ctx):
-    if isinstance(error, commands.CommandOnCooldown):
-        await msg.send('This command is on a {:.2f}s cooldown'.format(error.retry_after))
-
 @bot.command()
 async def create(msg):
 	if(msg.author.id == 336068309789310979):
@@ -81,7 +76,10 @@ async def myid(msg):
 @bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def greet(msg):
-	await msg.send(":smiley: :wave: Hello, there!")
+	try:
+		await msg.send(":smiley: :wave: Hello, there!")
+	except discord.ext.commands.CommandOnCooldown(cooldown, retry_after) as e:
+		await msg.send(str(e.retry_after))
 
 @bot.command()
 async def access(msg):
