@@ -40,11 +40,12 @@ async def create(msg):
 @bot.command()
 async def wallet(msg):
 	args = str(msg.message.content).split()
+	print("\n\nARGS: ",args[1])
 	auth = "'%"+str(msg.author.id)+">%';"
 	ctxlen = len(args)
 	if ctxlen > 1:
-		print("\n\nARGS: ",args[1])
-		auth = "'%"+str(args[1])[3:-2]+">%';"
+		
+		auth = "'%"+str(args[1])[3:-2]+"%';"
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
 		money = int((cur.fetchall())[0][0])
 		if money == 0:
