@@ -43,17 +43,26 @@ async def wallet(msg):
 	auth = "'%"+str(msg.author.id)+">%';"
 	ctxlen = len(args)
 	if ctxlen > 1:
-		auth = "'%"+str(args[1])+">%';"
-	cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
-	money = int((cur.fetchall())[0][0])
-	print("MONEY: ",money)
-	if money == 0:
-		await msg.send(":credit_card: | **You have no money in your wallet**")
-	elif money == 1:
-		await msg.send(":credit_card: | **You have {:s} credit in your wallet**".format(str(money)))
+		auth = "'%"+str(args[1])+"%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
+		money = int((cur.fetchall())[0][0])
+		if money == 0:
+			await msg.send(":credit_card: | **He/She has no credits in his/her wallet**")
+		elif money == 1:
+			await msg.send(":credit_card: | **He/She has {:s} credit in his/her wallet**".format(str(money)))
+		else:
+			await msg.send(":credit_card: | **He/She has {:s} credits in his/her wallet**".format(str(money)))
+		conn.commit()
 	else:
-		await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
-	conn.commit()
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
+		money = int((cur.fetchall())[0][0])
+		if money == 0:
+			await msg.send(":credit_card: | **You have no credits in your wallet**")
+		elif money == 1:
+			await msg.send(":credit_card: | **You have {:s} credit in your wallet**".format(str(money)))
+		else:
+			await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
+		conn.commit()
 	
 @bot.command()
 async def myid(msg):
