@@ -78,8 +78,8 @@ async def myid(msg):
 async def greet(msg):
 	try:
 		await msg.send(":smiley: :wave: Hello, there!")
-	except Exception as e:
-		await msg.send(CommandOnCooldown(bucket, retry_after))
+	except discord.ext.commands.CommandOnCooldown(cooldown, retry_after) as e:
+		await msg.send(str(e))
 
 @bot.command()
 async def access(msg):
