@@ -72,11 +72,14 @@ async def myid(msg):
 	await msg.send(msg.author.id)
 	print((str(args[1]))[3:-1])
 
-@commands.cooldown(1, 5, commands.BucketType.user)
 @bot.command()
+@commands.cooldown(1, 5, commands.BucketType.user)
 async def greet(msg):
-	await msg.send(":smiley: :wave: Hello, there!")
-	
+	try:
+		await msg.send(":smiley: :wave: Hello, there!")
+	except CommandOnCooldown as e:
+		raise e
+
 @bot.command()
 async def access(msg):
 	if(msg.author.id == 336068309789310979):
