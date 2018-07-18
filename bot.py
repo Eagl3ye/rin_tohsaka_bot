@@ -76,7 +76,7 @@ async def access(msg):
 			dataset = (cur.fetchall())
 			embed = discord.Embed(title="|| BANK ACCOUNTS", color=0xff2020) #rblock = "```| BANK ACCOUNTS |\n"
 			for tag, data in enumerate(dataset):
-				embed.add_field(name="[ "+(tag+1)+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False) #respond = ("\n" + str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
+				embed.add_field(name="[ "+(str(tag+1))+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False) #respond = ("\n" + str(data[0]) + "\nUserID: " + str(data[1]) + "\nValue: " + str(data[2])) 
 				#rblock = rblock + respond	
 				#print(respond)
 			await msg.send(embed=embed)#await msg.send(rblock + "```")
