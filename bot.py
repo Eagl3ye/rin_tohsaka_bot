@@ -70,7 +70,7 @@ async def wallet(msg):
 async def myid(msg):
 	args = str(msg.message.content).split()
 	await msg.send(msg.author.id)
-	print(str(args))
+	print((str(args[1]))[2:-1])
 	
 @bot.command()
 async def greet(msg):
