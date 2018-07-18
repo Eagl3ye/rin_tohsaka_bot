@@ -22,7 +22,6 @@ async def on_ready():
 async def on_command_error(error, ctx):
     if isinstance(error, commands.CommandOnCooldown):
         await msg.send('This command is on a {:.2f}s cooldown'.format(error.retry_after))
-    raise error
 
 @bot.command()
 async def create(msg):
