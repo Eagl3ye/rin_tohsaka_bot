@@ -44,6 +44,7 @@ async def wallet(msg):
 	ctxlen = len(args)
 	if ctxlen > 1:
 		auth = "'%"+str(args[1])[2:-1]+"%';"
+		print(auth)
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
 		money = int((cur.fetchall())[0][0])
 		if money == 0:
