@@ -47,6 +47,8 @@ async def create(msg):
 @bot.command()
 async def wallet(msg, args):
 	#args = str(msg.message.content).split()
+	if args is None:
+		args = msg.author.id
 	await msg.send(args)
 	#auth = "'%"+str(msg.author.id)+">%';"
 	'''
