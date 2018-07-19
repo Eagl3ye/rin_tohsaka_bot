@@ -45,12 +45,11 @@ async def create(msg):
 		pass
 
 @bot.command()
-async def wallet(msg, args):
+async def wallet(msg, target:str=None):
 	#args = str(msg.message.content).split()
-	if args != "":
-		await msg.send(args)
-	else:
-		await msg.send(msg.author.id)
+	if target is None:
+		target = msg.author.id
+	await msg.send(target)
 	#auth = "'%"+str(msg.author.id)+">%';"
 	'''
 	ctxlen = len(args)
@@ -83,13 +82,10 @@ async def myid(msg):
 	await msg.send(msg.author.id)
 	print((str(args[1]))[3:-1])
 
-@bot.command()
+@bot.command("greet", greet(), )
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def greet(msg):
-	if (is_on_cooldown(msg)):
-		await msg.send("Wait for the cooldown")
-	else:
-		await msg.send(":smiley: :wave: Hello, there!")
+	await msg.send(":smiley: :wave: Hello, there!")
 
 @bot.command()
 async def access(msg):
