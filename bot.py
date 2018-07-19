@@ -45,26 +45,10 @@ async def create(msg):
 		pass
 
 @bot.command()
-async def wallet(msg, target:str=msg.author.id):
-	#args = str(msg.message.content).split()
-	await msg.send(target)
-	#auth = "'%"+str(msg.author.id)+">%';"
-	'''
-	ctxlen = len(args)
-	if ctxlen > 1:	
-		auth = "'%"+str(args[1])[3:-1]+"%';"
-		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
-		print("AUTH: ",auth)
-		money = int((cur.fetchall())[0][0])
-		if money == 0:
-			await msg.send(":credit_card: | **He/She has no credits in his/her wallet**")
-		elif money == 1:
-			await msg.send(":credit_card: | **He/She has {:s} credit in his/her wallet**".format(str(money)))
-		else:
-			await msg.send(":credit_card: | **He/She has {:s} credits in his/her wallet**".format(str(money)))
-		conn.commit()
-	else:
-		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
+async def wallet(msg, target:str=None):
+	if target is None:
+		target = "'%"+(msg.author.id)+">%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(target))
 		money = int((cur.fetchall())[0][0])
 		if money == 0:
 			await msg.send(":credit_card: | **You have no credits in your wallet**")
@@ -73,6 +57,18 @@ async def wallet(msg, target:str=msg.author.id):
 		else:
 			await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
 		conn.commit()
+	else:
+		target = "'%"+(target)[3:-1]+"%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(target))
+		money = int((cur.fetchall())[0][0])
+		if money == 0:
+			await msg.send(":credit_card: | **He/She has no credits in his/her wallet**")
+		elif money == 1:
+			await msg.send(":credit_card: | **He/She has {:s} credit in his/her wallet**".format(str(money)))
+		else:
+			await msg.send(":credit_card: | **He/She has {:s} credits in his/her wallet**".format(str(money)))
+		conn.commit()
+		
 	'''
 @bot.command()
 async def myid(msg):
