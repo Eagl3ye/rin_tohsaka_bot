@@ -82,7 +82,7 @@ async def myid(msg):
 	await msg.send(msg.author.id)
 	print((str(args[1]))[3:-1])
 
-@bot.command("greet", greet(), )
+@bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def greet(msg):
 	await msg.send(":smiley: :wave: Hello, there!")
