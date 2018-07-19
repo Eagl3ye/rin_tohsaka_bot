@@ -19,15 +19,15 @@ async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
 @bot.command()
-async def wallet(msg, target:str=None):
+async def wallet(msg, user:str=None):
 	money = 0;
-	if target is None:
-		retarget = "'%"+str(msg.author.id)+">%';"
-		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(retarget))
+	if user is None:
+		newuser = "'%"+str(msg.author.id)+">%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(newuser))
 		money = int((cur.fetchall())[0][0])
 	else:
-		target = "'%"+(target)[3:-1]+"%';"
-		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(target))
+		user = "'%"+(user)[3:-1]+"%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(user))
 		money = int((cur.fetchall())[0][0])
 
 	if money == 0:
