@@ -18,10 +18,25 @@ async def on_ready():
 	print('Changing presence...')
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
-@bot.event
-async def on_command_error(error, msg):
-    if isinstance(error, commands.CommandOnCooldown):
-        await msg.send("This command is on a {:.2f}s cooldown".format(error.retry_after))
+@bot.command()
+async def wallet(msg, target:str=None):
+	money = 0;
+	if target is None:
+		retarget = "'%"+str(msg.author.id)+">%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(retarget))
+		money = int((cur.fetchall())[0][0])
+	else:
+		target = "'%"+(target)[3:-1]+"%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(target))
+		money = int((cur.fetchall())[0][0])
+
+	if money == 0:
+		await msg.send(":credit_card: | **Wallet is empty**")
+	elif money == 1:
+		await msg.send(":credit_card: | **{:s} credit**".format(str(money)))
+	else:
+		await msg.send(":credit_card: | **{:s} credits**".format(str(money)))
+	conn.commit()
 
 @bot.command()
 async def create(msg):
@@ -43,31 +58,6 @@ async def create(msg):
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
 		print("-x-x-ACCESS DENIED-x-x-")
 		pass
-
-@bot.command()
-async def wallet(msg, target:str=None):
-	if target is None:
-		retarget = "'%"+str(msg.author.id)+">%';"
-		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(retarget))
-		money = int((cur.fetchall())[0][0])
-		if money == 0:
-			await msg.send(":credit_card: | **You have no credits in your wallet**")
-		elif money == 1:
-			await msg.send(":credit_card: | **You have {:s} credit in your wallet**".format(str(money)))
-		else:
-			await msg.send(":credit_card: | **You have {:s} credits in your wallet**".format(str(money)))
-		conn.commit()
-	else:
-		target = "'%"+(target)[3:-1]+"%';"
-		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(target))
-		money = int((cur.fetchall())[0][0])
-		if money == 0:
-			await msg.send(":credit_card: | **He/She has no credits in his/her wallet**")
-		elif money == 1:
-			await msg.send(":credit_card: | **He/She has {:s} credit in his/her wallet**".format(str(money)))
-		else:
-			await msg.send(":credit_card: | **He/She has {:s} credits in his/her wallet**".format(str(money)))
-		conn.commit()
 
 @bot.command()
 async def myid(msg):
