@@ -68,8 +68,7 @@ async def wallet(msg, target:str=None):
 		else:
 			await msg.send(":credit_card: | **He/She has {:s} credits in his/her wallet**".format(str(money)))
 		conn.commit()
-		
-	'''
+
 @bot.command()
 async def myid(msg):
 	args = str(msg.message.content).split()
