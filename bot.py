@@ -47,8 +47,8 @@ async def create(msg):
 @bot.command()
 async def wallet(msg, target:str=None):
 	if target is None:
-		target = "'%"+(msg.author.id)+">%';"
-		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(target))
+		retarget = "'%"+(msg.author.id)+">%';"
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(retarget))
 		money = int((cur.fetchall())[0][0])
 		if money == 0:
 			await msg.send(":credit_card: | **You have no credits in your wallet**")
