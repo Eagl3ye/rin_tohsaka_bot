@@ -47,7 +47,7 @@ async def create(msg):
 @bot.command()
 async def wallet(msg, target:str=None):
 	if target is None:
-		retarget = "'%"+(msg.author.id)+">%';"
+		retarget = "'%"+str(msg.author.id)+">%';"
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(retarget))
 		money = int((cur.fetchall())[0][0])
 		if money == 0:
