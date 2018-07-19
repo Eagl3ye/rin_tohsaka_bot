@@ -86,10 +86,10 @@ async def myid(msg):
 @bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def greet(msg):
-	try:
+	if (is_on_cooldown(msg)):
+		await msg.send("Wait for the cooldown")
+	else:
 		await msg.send(":smiley: :wave: Hello, there!")
-	except discord.ext.commands.CommandOnCooldown(cooldown, retry_after) as e:
-		await on_command_error(e, msg)
 
 @bot.command()
 async def access(msg):
