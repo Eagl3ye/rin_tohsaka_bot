@@ -45,12 +45,12 @@ async def create(msg):
 		pass
 
 @bot.command()
-async def wallet(msg):
-	args = str(msg.message.content).split()
+async def wallet(msg, target:str):
+	#args = str(msg.message.content).split()
 	auth = "'%"+str(msg.author.id)+">%';"
 	ctxlen = len(args)
 	if ctxlen > 1:	
-		auth = "'%"+str(args[1])[3:-1]+"%';"
+		auth = "'%"+target[3:-1]+"%';"
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(auth))
 		print("AUTH: ",auth)
 		money = int((cur.fetchall())[0][0])
@@ -86,26 +86,5 @@ async def greet(msg):
 	except discord.ext.commands.CommandOnCooldown(cooldown, retry_after) as e:
 		await on_command_error(e, msg)
 
-@bot.command()
-async def access(msg):
-	if(msg.author.id == 336068309789310979):
-		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
-		print("-=-=-ACCESS GRANTED-=-=-")
-
-		try:
-			cur.execute("SELECT * FROM kidz;")
-			dataset = (cur.fetchall())
-			embed = discord.Embed(title="|| BANK ACCOUNTS", color=0xff2020)
-			for tag, data in enumerate(dataset):
-				embed.add_field(name="[ "+(str(tag+1))+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False)
-			await msg.send(embed=embed)
-			conn.commit()
-		except psycopg2.InternalError:
-			#conn.rollback()
-			pass
-	else:
-		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
-		print("-x-x-ACCESS DENIED-x-x-")
-		pass
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
