@@ -29,7 +29,8 @@ async def on_ready():
 async def now(msg):
 	dnt = time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime())
 	await msg.send("```python\n['SERVER TIME']\n\nAtlantic/Azores +00:00\n#>\t{}```".format(dnt))
-	await msg.message.edit(delete_after = 3)
+	await asyncio.sleep(3)
+	await msg.send("```python\n['SERVER TIME']\n\nAtlantic/Azores +00:00\n#>\t{}```".format(dnt))
 
 @bot.command()
 async def wallet(msg, user:str=None):
