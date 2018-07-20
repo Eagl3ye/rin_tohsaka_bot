@@ -20,7 +20,7 @@ async def on_ready():
 
 @bot.command()
 async def now(msg):
-	await msg.send(strftime("%a, %d %b %Y %H:%M:%S +0800", gmtime()))
+	await msg.send(time.strftime("%a, %d %b %Y %H:%M:%S +0800", time.gmtime()))
 
 @bot.command()
 async def wallet(msg, user:str=None):
