@@ -19,6 +19,10 @@ async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
 @bot.command()
+async def now(msg):
+	await msg.send(time.asctime(time.gmtime()))
+
+@bot.command()
 async def wallet(msg, user:str=None):
 	money = 0;
 	if user is None:
