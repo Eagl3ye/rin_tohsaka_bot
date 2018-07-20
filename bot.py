@@ -1,8 +1,6 @@
 #Imports
 import os                                                       #OS lib
 import time														#TIME
-os.environ['TZ'] = 'Asia/Manila'
-time.tzset()
 import discord                                                  #DISCORD API lib
 from discord.ext import commands
 bot = commands.Bot(command_prefix='r!')
@@ -22,6 +20,8 @@ async def on_ready():
 
 @bot.command()
 async def now(msg):
+	os.environ['TZ'] = 'Asia/Manila'
+	time.tzset()
 	await msg.send(time.strftime("%a, %d %b %Y %H:%M:%S +0800", time.gmtime()))
 
 @bot.command()
