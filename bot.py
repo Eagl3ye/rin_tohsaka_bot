@@ -21,7 +21,11 @@ async def on_ready():
 @bot.command()
 async def now(msg):
 	dnt = time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime())
-	await msg.send("```python\n[SERVER TIME]\n\t|--Atlantic/Azores +00:00\n\t|----{}```".format(dnt))
+	await msg.send("```python\n['SERVER TIME']\n\nAtlantic/Azores +00:00\n#>\t{}```".format(dnt))
+
+@bot.command()
+async def auth(msg):
+	await msg.send(msg.author.name)
 
 @bot.command()
 async def wallet(msg, user:str=None):
