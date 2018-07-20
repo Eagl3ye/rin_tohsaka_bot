@@ -11,8 +11,8 @@ cur = conn.cursor()
 
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandOnCooldown):
-        await msg.send("This command is on cooldown, please retry in {}s.".format(error.retry_after))
-        return
+		await msg.send("This command is on cooldown, please retry in {}s.".format(error.retry_after))
+		return
 
 @bot.event
 async def on_ready():
