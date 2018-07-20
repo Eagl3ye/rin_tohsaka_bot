@@ -1,6 +1,7 @@
 #Imports
 import os                                                       #OS lib
 import time														#TIME
+import asyncio													#ASYNCIO
 import discord                                                  #DISCORD API lib
 from discord.ext import commands
 bot = commands.Bot(command_prefix='r!')
