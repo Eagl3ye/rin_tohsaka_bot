@@ -20,7 +20,8 @@ async def on_ready():
 
 @bot.command()
 async def now(msg):
-	await msg.send(cur.execute("SELECT localtime(2);"))
+	cur.execute("SELECT localtime(2);")
+	await msg.send(cur.fetchone())
 
 @bot.command()
 async def wallet(msg, user:str=None):
