@@ -1,6 +1,8 @@
 #Imports
 import os                                                       #OS lib
 import time														#TIME
+os.environ['TZ'] = "Hongkong"
+time.tzset()
 import discord                                                  #DISCORD API lib
 from discord.ext import commands
 bot = commands.Bot(command_prefix='r!')
