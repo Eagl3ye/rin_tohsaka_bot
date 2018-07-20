@@ -20,8 +20,6 @@ async def on_ready():
 
 @bot.command()
 async def now(msg):
-	os.environ['TZ'] = 'Asia/Manila'
-	time.tzset()
 	await msg.send(time.strftime("%a, %d %b %Y %H:%M:%S +0800", time.gmtime()))
 
 @bot.command()
