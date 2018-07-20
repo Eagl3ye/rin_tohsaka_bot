@@ -9,6 +9,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
 cur = conn.cursor()
 
+@bot.event
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandOnCooldown):
 		await msg.send("This command is on cooldown, please retry in {}s.".format(error.retry_after))
