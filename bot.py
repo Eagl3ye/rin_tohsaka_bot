@@ -10,11 +10,9 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
 @bot.event
-@commands.has_permissions(manage_messages=True)
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandOnCooldown):
 		await msg.send(":clock5: | **COOLDOWN: Retry again in {:.2f}s.**".format(error.retry_after))
-		await msg.message.edit(delete_after = error.retry_after)
 		return
 
 @bot.event
@@ -27,9 +25,11 @@ async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
 @bot.command()
+@commands.has_permissions(manage_messages=True)
 async def now(msg):
 	dnt = time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime())
 	await msg.send("```python\n['SERVER TIME']\n\nAtlantic/Azores +00:00\n#>\t{}```".format(dnt))
+	await msg.message.edit(delete_after = 3)
 
 @bot.command()
 async def wallet(msg, user:str=None):
