@@ -15,6 +15,7 @@ async def on_command_error(msg, error):
 		return
 
 async def run_reset():
+	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 	print("[SERVER] |\tReady...")
 	while True:
 		await asyncio.sleep(1)
