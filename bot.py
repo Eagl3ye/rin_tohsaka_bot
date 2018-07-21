@@ -46,6 +46,9 @@ async def daily(msg):
 	else:
 		print("[SERVER] |\tClaim Status: ",str(claim_status))				#LOG
 		cur.execute("UPDATE kidz SET isDailyClaimed = true WHERE usr_id LIKE "+(user))
+		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(user))
+		money = int((cur.fetchall())[0][0])
+		cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
 		await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 	conn.commit()
 
@@ -122,6 +125,6 @@ async def access(msg):
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
 		print("-x-x-ACCESS DENIED-x-x-")
 		pass
-		
+
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
