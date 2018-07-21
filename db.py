@@ -13,7 +13,7 @@ cur = conn.cursor()
 #except psycopg2.DatabaseError:
 #	conn.rollback()
 #	pass
-cur.execute("ALTER TABLE kidz ADD isDailyClaimed bool;")
+cur.execute("UPDATE kidz SET isDailyClaimed = false;")
 
 conn.commit()
 conn.close()
