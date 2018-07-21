@@ -9,7 +9,11 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
-#@bot.event
+@bot.event
+async def on_command_error(msg, error):
+	if isinstance(error, commands.CommandNotFound):
+		return
+
 async def run_reset():
 	print("[SERVER] |\tReady...")
 	while True:
@@ -21,6 +25,18 @@ async def run_reset():
 			conn.commit()
 			print("[SERVER] |\tResetting dailies...")
 			break
+
+BOT_TOKEN = os.environ['BOT_TOKEN']
+bot.run(BOT_TOKEN)
+
+
+
+
+
+
+
+
+
 #cur.execute("SELECT * FROM kidz ORDER BY id ASC;")
 #cur.execute("UPDATE kidz SET mono = 1 WHERE id = 1;")
 #try:
@@ -30,8 +46,5 @@ async def run_reset():
 #	conn.rollback()
 #	pass
 #cur.execute("ALTER TABLE kidz ADD daily bool")
-BOT_TOKEN = os.environ['BOT_TOKEN']
-bot.run(BOT_TOKEN)
-
 #conn.commit()
 #conn.close()
