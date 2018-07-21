@@ -12,10 +12,12 @@ cur = conn.cursor()
 @bot.event
 async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
+	cur.execute("UPDATE kidz SET isDailyClaimed = false;")
 	
-@bot.event
-async def on_command_error(msg, error):
-	if isinstance(error, commands.CommandNotFound):
+#@bot.event
+#async def on_command_error(msg, error):
+#if isinstance(error, commands.CommandNotFound):
+'''
 		return
 
 async def run_reset():
@@ -29,7 +31,7 @@ async def run_reset():
 			conn.commit()
 			print("[SERVER] |\tResetting dailies...")
 			break
-
+'''
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
 
