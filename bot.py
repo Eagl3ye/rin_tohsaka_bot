@@ -39,9 +39,9 @@ async def daily(msg):
 	await msg.send(str(claim_status))
 	while True:
 		await asyncio.sleep(1)
-	 	if time.gmtime()[4] == 15:
-	 		await msg.send("Time is up!")
-	 		break
+		if time.gmtime()[4] == 16:
+			await msg.send("Time is up!")
+			break
 
 @bot.command()
 async def wallet(msg, user:str=None):
