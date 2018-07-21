@@ -1,6 +1,7 @@
 import os														#OS
 import time														#TIME
 import asyncio													#ASYNCIO
+import discord													#DISCORD API
 import psycopg2													#DATABASE HANDLING
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -13,6 +14,7 @@ while True:
 	hrs, mins, secs = (gmt[3] == 23), (gmt[4] == 59), (gmt[5] == 59)
 	if hrs & mins & secs:
 		cur.execute("UPDATE kidz SET isDailyClaimed = false;")
+		conn.commit()
 		print("[SERVER] |\tResetting dailies...")
 		break
 #cur.execute("SELECT * FROM kidz ORDER BY id ASC;")

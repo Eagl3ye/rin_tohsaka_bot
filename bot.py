@@ -45,7 +45,9 @@ async def daily(msg):
 		await msg.send(":gift: | **{}**, you still have to wait **{} hour/s**, **{} minute/s** and **{} second/s** for your next daily reward.".format(msg.author.name,hrs,mins,secs))
 	else:
 		print("[SERVER] |\tClaim Status: ",str(claim_status))				#LOG
+		cur.execute("UPDATE kidz SET isDailyClaimed = true WHERE usr_id LIKE "+(user))
 		await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
+	conn.commit()
 
 @bot.command()
 async def wallet(msg, user:str=None):
