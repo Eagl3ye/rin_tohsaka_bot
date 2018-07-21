@@ -9,8 +9,8 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
-@bot.event
-async def on_ready():
+#@bot.event
+async def run_reset():
 	print("[SERVER] |\tReady...")
 	while True:
 		await asyncio.sleep(1)
@@ -33,5 +33,5 @@ async def on_ready():
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
 
-conn.commit()
-conn.close()
+#conn.commit()
+#conn.close()
