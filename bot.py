@@ -35,8 +35,13 @@ async def now(msg):
 async def daily(msg):
 	user = "'%"+str(msg.author.id)+">%';"
 	cur.execute("SELECT isDailyClaimed FROM kidz WHERE usr_id LIKE "+(user))
-	claim_status = int((cur.fetchall())[0][0])
-	await msg.send(str(claim_status)) 
+	claim_status = str((cur.fetchall())[0][0])
+	await msg.send(str(claim_status))
+	while True:
+		await asyncio.sleep(1)
+	 	if time.gmtime()[4] == 15:
+	 		await msg.send("Time is up!")
+	 		break
 
 @bot.command()
 async def wallet(msg, user:str=None):
