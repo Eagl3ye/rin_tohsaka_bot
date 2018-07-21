@@ -23,7 +23,7 @@ async def run_reset():
 	while True:
 		await asyncio.sleep(1)
 		gmt = time.gmtime()
-		hrs, mins, secs = (gmt[3] == 23), (gmt[4] == 59), (gmt[5] == 59)
+		hrs, mins, secs = (gmt[3] == 16), (gmt[4] == 59), (gmt[5] == 59)
 		if hrs & mins & secs:
 			cur.execute("UPDATE kidz SET isDailyClaimed = false;")
 			conn.commit()
