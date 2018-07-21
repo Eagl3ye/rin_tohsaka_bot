@@ -10,12 +10,15 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
 @bot.event
+async def on_ready():
+	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
+	
+@bot.event
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandNotFound):
 		return
 
 async def run_reset():
-	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 	print("[SERVER] |\tReady...")
 	while True:
 		await asyncio.sleep(1)
