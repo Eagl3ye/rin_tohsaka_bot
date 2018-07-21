@@ -1,8 +1,8 @@
 #Imports
-import os                                                       #OS lib
+import os														#OS
 import time														#TIME
 import asyncio													#ASYNCIO
-import discord                                                  #DISCORD API lib
+import discord													#DISCORD API
 from discord.ext import commands
 bot = commands.Bot(command_prefix='r!')
 import psycopg2													#DATABASE HANDLING
@@ -22,26 +22,30 @@ async def on_ready():
 	print('Logged in as...')
 	print("Bot:",bot.user.name)
 	print("User_ID:",bot.user.id)
-	print("conn = ", conn)
+	print("Connection >> ", conn)
 	print('Changing presence...')
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
 @bot.command()
+@commands.cooldown(1, 2, commands.BucketType.user)
 async def now(msg):
 	dnt = time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime())
-	await msg.send("```python\n['SERVER TIME']\n\nAtlantic/Azores +00:00\n#>\t{}```".format(dnt))
+	await msg.send("```python\n['SERVER TIME']\n\nInternational Date Line UTC -12:00\n#>\t{}```".format(dnt))
 
 @bot.command()
+@commands.cooldown(1, 5, commands.BucketType.user)
 async def daily(msg):
 	user = "'%"+str(msg.author.id)+">%';"
 	cur.execute("SELECT isDailyClaimed FROM kidz WHERE usr_id LIKE "+(user))
-	claim_status = str((cur.fetchall())[0][0])
-	await msg.send(str(claim_status))
-	while True:
-		await asyncio.sleep(1)
-		if time.gmtime()[4] == 16:
-			await msg.send("Time is up!")
-			break
+	claim_status = bool((cur.fetchall())[0][0])
+	if claim_status:
+		print("[SERVER] |\tClaim Status: ",str(claim_status))				#LOG
+		gmt = time.gmtime()
+		hrs, mins, secs = 23 - gmt[3], 59 - gmt[4], 59 - gmt[5]
+		await msg.send(":gift: | **{}**, you still have to wait **{} hour/s**, **{} minute/s** and **{} second/s** for your next daily reward.".format(msg.author.name,hrs,mins,secs))
+	else:
+		print("[SERVER] |\tClaim Status: ",str(claim_status))				#LOG
+		await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 
 @bot.command()
 async def wallet(msg, user:str=None):
