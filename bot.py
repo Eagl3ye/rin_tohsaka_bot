@@ -6,8 +6,8 @@ import discord													#DISCORD API
 from discord.ext import commands
 bot = commands.Bot(command_prefix='r!')
 import psycopg2													#DATABASE HANDLING
-DATABASE_URL = os.environ['DATABASE_URL']                   
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')    
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
 @bot.event
@@ -122,5 +122,6 @@ async def access(msg):
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
 		print("-x-x-ACCESS DENIED-x-x-")
 		pass
+		
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
