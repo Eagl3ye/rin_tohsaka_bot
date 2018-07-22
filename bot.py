@@ -36,8 +36,8 @@ async def test(msg):
 @bot.command()
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def now(msg):
-	dnt = time.strftime("%a, %d %b %Y %I:%M:%S", time.localtime())
-	await msg.send("```python\n['SERVER TIME']\n\nAsia/Manila UTC +08:00\n#>\t{}```".format(dnt))
+	clt = time.strftime("%a, %d %b %Y %I:%M:%S %p", time.localtime())
+	await msg.send("```python\n['SERVER TIME']\n\nAsia/Manila UTC +08:00\n#>\t{}```".format(clt))
 
 @bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
@@ -55,7 +55,7 @@ async def daily(msg):
 		cur.execute("UPDATE kidz SET isDailyClaimed = true WHERE usr_id LIKE "+(user))
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(user))
 		money = int((cur.fetchall())[0][0])
-		#cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
+		cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
 		await msg.send(":gear: | TEST FEATURE RUN: __**NO CREDITS** HAVE BEEN TRANSFERED__")
 		await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 	conn.commit()
