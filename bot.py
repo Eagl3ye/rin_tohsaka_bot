@@ -46,17 +46,14 @@ async def daily(msg):
 	cur.execute("SELECT isDailyClaimed FROM kidz WHERE usr_id LIKE "+(user))
 	claim_status = bool((cur.fetchall())[0][0])
 	if claim_status:
-		print("[SERVER] |\tClaim Status: ",str(claim_status))				#LOG
 		gmt = time.localtime()
 		hrs, mins, secs = 23 - gmt[3], 59 - gmt[4], 59 - gmt[5]
 		await msg.send(":gift: | **{}**, you still have to wait **{} hour/s**, **{} minute/s** and **{} second/s** for your next daily reward.".format(msg.author.name,hrs,mins,secs))
 	else:
-		print("[SERVER] |\tClaim Status: ",str(claim_status))				#LOG
 		cur.execute("UPDATE kidz SET isDailyClaimed = true WHERE usr_id LIKE "+(user))
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(user))
 		money = int((cur.fetchall())[0][0])
 		cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
-		await msg.send(":gear: | TEST FEATURE RUN: __**NO CREDITS** HAVE BEEN TRANSFERED__")
 		await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 	conn.commit()
 

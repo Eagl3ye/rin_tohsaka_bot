@@ -7,8 +7,8 @@ cur = conn.cursor()
 
 while True:
 	time.sleep(1)
-	clt = time.strftime("%H %M", time.localtime())
-	if (clt == "22 16"):
+	clt = time.strftime("%H %M %S", time.localtime())
+	if (clt == "00 00 00"):
 		cur.execute("UPDATE kidz SET isDailyClaimed = False;")
 		conn.commit()
 		print("[SERVER] |\tResetting dailies...")
