@@ -9,7 +9,9 @@ import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
+DEV = os.environ['DEV']
 
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ STANDARD COMMANDS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 @bot.event
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandOnCooldown):
@@ -24,14 +26,6 @@ async def on_ready():
 	print("Connection >> ", conn)
 	print('Changing presence...')
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
-
-@bot.command()
-async def test(msg):
-	TZ = os.environ['TZ']
-	time.tzset()
-	await msg.send(time.localtime())
-	cur.execute("SELECT * FROM kidz;")
-	await msg.send((cur.fetchall()))
 
 @bot.command()
 @commands.cooldown(1, 2, commands.BucketType.user)
@@ -78,8 +72,42 @@ async def wallet(msg, user:str=None):
 	conn.commit()
 
 @bot.command()
+async def myid(msg):
+	args = str(msg.message.content).split()
+	await msg.send(msg.author.id)
+	print((str(args[1]))[3:-1])
+
+@bot.command()
+@commands.cooldown(1, 5, commands.BucketType.user)
+async def greet(msg):
+	await msg.send(":smiley: :wave: Hello, there!")
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ DEV COMMANDS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
+@bot.command()
+async def access(msg):
+	if(msg.author.id == DEV):
+		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
+		print("-=-=-ACCESS GRANTED-=-=-")
+
+		try:
+			cur.execute("SELECT * FROM kidz;")
+			dataset = (cur.fetchall())
+			embed = discord.Embed(title="|| BANK ACCOUNTS", color=0xff2020)
+			for tag, data in enumerate(dataset):
+				embed.add_field(name="[ "+(str(tag+1))+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False)
+			await msg.send(embed=embed)
+			conn.commit()
+		except psycopg2.InternalError:
+			#conn.rollback()
+			pass
+	else:
+		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
+		print("-x-x-ACCESS DENIED-x-x-")
+		pass
+
+@bot.command()
 async def create(msg):
-	if(msg.author.id == 336068309789310979):
+	if(msg.author.id == DEV):
 		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
 		print("-=-=-ACCESS GRANTED-=-=-")
 		try:
@@ -99,33 +127,15 @@ async def create(msg):
 		pass
 
 @bot.command()
-async def myid(msg):
-	args = str(msg.message.content).split()
-	await msg.send(msg.author.id)
-	print((str(args[1]))[3:-1])
-
-@bot.command()
-@commands.cooldown(1, 5, commands.BucketType.user)
-async def greet(msg):
-	await msg.send(":smiley: :wave: Hello, there!")
-
-@bot.command()
-async def access(msg):
-	if(msg.author.id == 336068309789310979):
+async def test(msg):
+	if(msg.author.id == DEV):
 		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
 		print("-=-=-ACCESS GRANTED-=-=-")
-
-		try:
-			cur.execute("SELECT * FROM kidz;")
-			dataset = (cur.fetchall())
-			embed = discord.Embed(title="|| BANK ACCOUNTS", color=0xff2020)
-			for tag, data in enumerate(dataset):
-				embed.add_field(name="[ "+(str(tag+1))+" ] - UserID: "+str(data[1])+"", value="Money: "+str(data[2]), inline=False)
-			await msg.send(embed=embed)
-			conn.commit()
-		except psycopg2.InternalError:
-			#conn.rollback()
-			pass
+		TZ = os.environ['TZ']
+		time.tzset()
+		await msg.send(time.localtime())
+		cur.execute("SELECT * FROM kidz;")
+		await msg.send((cur.fetchall()))	
 	else:
 		await msg.send(":no_entry: ACCESS DENIED :no_entry:")
 		print("-x-x-ACCESS DENIED-x-x-")

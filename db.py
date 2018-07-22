@@ -8,19 +8,21 @@ cur = conn.cursor()
 while True:
 	time.sleep(1)
 	clt = time.strftime("%H %M %S", time.localtime())
-	if (clt == "00 00 00"):
+	if (clt == "23 59 59"):
 		cur.execute("UPDATE kidz SET isDailyClaimed = False;")
 		conn.commit()
 		print("[SERVER] |\tResetting dailies...")
 
-#cur.execute("SELECT * FROM kidz ORDER BY id ASC;")
-#cur.execute("UPDATE kidz SET mono = 1 WHERE id = 1;")
-#try:
-#	cur.execute("CREATE TABLE kidz (id serial PRIMARY KEY, usr_id text UNIQUE, mono integer);")
-#	print("\n\nCREATED TABLE NAMED kidz...\n\n")
-#except psycopg2.DatabaseError:
-#	conn.rollback()
-#	pass
-#cur.execute("ALTER TABLE kidz ADD daily bool")
-#conn.commit()
-#conn.close()
+'''
+cur.execute("SELECT * FROM kidz ORDER BY id ASC;")
+cur.execute("UPDATE kidz SET mono = 1 WHERE id = 1;")
+try:
+	cur.execute("CREATE TABLE kidz (id serial PRIMARY KEY, usr_id text UNIQUE, mono integer);")
+	print("\n\nCREATED TABLE NAMED kidz...\n\n")
+except psycopg2.DatabaseError:
+	conn.rollback()
+	pass
+cur.execute("ALTER TABLE kidz ADD daily bool")
+conn.commit()
+conn.close()
+'''
