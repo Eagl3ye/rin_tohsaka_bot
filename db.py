@@ -1,14 +1,10 @@
 import os														#OS
 import time														#TIME
-import asyncio													#ASYNCIO
-import discord													#DISCORD API
-from discord.ext import commands
-bot = commands.Bot(command_prefix='r!')
 import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
-
+'''
 @bot.event
 async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
@@ -17,23 +13,13 @@ async def on_ready():
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandNotFound):
 		return
+'''
+'''
+	cur.execute("UPDATE kidz SET isDailyClaimed = false;")
+	conn.commit()
+	print("[SERVER] |\tResetting dailies...")
 
-async def run_reset():
-	print("[SERVER] |\tReady...")
-	while True:
-		await asyncio.sleep(1)
-		gmt = time.gmtime()
-		hrs, mins, secs = (gmt[3] == 23), (gmt[4] == 59), (gmt[5] == 59)
-		if hrs & mins & secs:
-			cur.execute("UPDATE kidz SET isDailyClaimed = false;")
-			conn.commit()
-			print("[SERVER] |\tResetting dailies...")
-			break
-
-BOT_TOKEN = os.environ['BOT_TOKEN']
-bot.run(BOT_TOKEN)
-
-
+'''
 
 
 

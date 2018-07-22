@@ -16,7 +16,6 @@ async def on_command_error(msg, error):
 		await msg.send(":clock5: | **COOLDOWN: Retry again in {:.2f}s.**".format(error.retry_after))
 		return
 
-
 @bot.event
 async def on_ready():
 	print('Logged in as...')
@@ -27,10 +26,18 @@ async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
 @bot.command()
+async def test(msg):
+	TZ = os.environ['TZ']
+	time.tzset()
+	await msg.send(time.localtime())
+	cur.execute("SELECT * FROM kidz;")
+	await msg.send((cur.fetchall())[0][0])
+
+@bot.command()
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def now(msg):
-	dnt = time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime())
-	await msg.send("```python\n['SERVER TIME']\n\nInternational Date Line UTC -12:00\n#>\t{}```".format(dnt))
+	dnt = time.strftime("%a, %d %b %Y %I:%M:%S", time.localtime())
+	await msg.send("```python\n['SERVER TIME']\n\nAsia/Manila UTC +08:00\n#>\t{}```".format(dnt))
 
 @bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
@@ -48,7 +55,8 @@ async def daily(msg):
 		cur.execute("UPDATE kidz SET isDailyClaimed = true WHERE usr_id LIKE "+(user))
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(user))
 		money = int((cur.fetchall())[0][0])
-		cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
+		#cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
+		await msg.send(":gear: | TEST FEATURE RUN: __**NO CREDITS** HAVE BEEN TRANSFERED__")
 		await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 	conn.commit()
 
