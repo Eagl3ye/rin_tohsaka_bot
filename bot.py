@@ -31,7 +31,7 @@ async def test(msg):
 	time.tzset()
 	await msg.send(time.localtime())
 	cur.execute("SELECT * FROM kidz;")
-	await msg.send((cur.fetchall())[0][0])
+	await msg.send((cur.fetchall()))
 
 @bot.command()
 @commands.cooldown(1, 2, commands.BucketType.user)
