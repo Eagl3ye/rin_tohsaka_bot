@@ -8,6 +8,7 @@ cur = conn.cursor()
 while True:
 	time.sleep(1)
 	clt = time.strftime("%H %M", time.localtime())
+	print(clt)
 	if (clt == "10 8"):
 		cur.execute("UPDATE kidz SET isDailyClaimed = False;")
 		conn.commit()

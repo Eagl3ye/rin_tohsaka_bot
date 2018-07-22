@@ -47,8 +47,8 @@ async def daily(msg):
 	claim_status = bool((cur.fetchall())[0][0])
 	if claim_status:
 		print("[SERVER] |\tClaim Status: ",str(claim_status))				#LOG
-		gmt = time.gmtime()
-		hrs, mins, secs = 15 - (gmt[3] - 8), 59 - gmt[4], 59 - gmt[5]
+		gmt = time.localtime()
+		hrs, mins, secs = 23 - gmt[3], 59 - gmt[4], 59 - gmt[5]
 		await msg.send(":gift: | **{}**, you still have to wait **{} hour/s**, **{} minute/s** and **{} second/s** for your next daily reward.".format(msg.author.name,hrs,mins,secs))
 	else:
 		print("[SERVER] |\tClaim Status: ",str(claim_status))				#LOG
