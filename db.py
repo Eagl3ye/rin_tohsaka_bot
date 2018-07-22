@@ -6,9 +6,9 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
 while True:
-	time.sleep()
-	clt = time.strftime("%H", time.localtime())
-	if clt == 10:
+	time.sleep(1)
+	clt = time.strftime("%H %M", time.localtime())
+	if clt == "10 3":
 		cur.execute("UPDATE kidz SET isDailyClaimed = False;")
 		conn.commit()
 		print("[SERVER] |\tResetting dailies...")
