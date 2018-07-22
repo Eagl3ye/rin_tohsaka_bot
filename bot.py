@@ -85,7 +85,7 @@ async def greet(msg):
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ DEV COMMANDS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 @bot.command()
 async def access(msg):
-	if(msg.author.id == DEV):
+	if(msg.author.id == int(DEV)):
 		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
 		print("-=-=-ACCESS GRANTED-=-=-")
 
@@ -107,7 +107,7 @@ async def access(msg):
 
 @bot.command()
 async def create(msg):
-	if(msg.author.id == DEV):
+	if(msg.author.id == int(DEV)):
 		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
 		print("-=-=-ACCESS GRANTED-=-=-")
 		try:
@@ -128,7 +128,7 @@ async def create(msg):
 
 @bot.command()
 async def test(msg):
-	if(msg.author.id == DEV):
+	if(msg.author.id == int(DEV)):
 		await msg.send(":white_check_mark: ACCESS GRANTED :white_check_mark:")
 		print("-=-=-ACCESS GRANTED-=-=-")
 		TZ = os.environ['TZ']
