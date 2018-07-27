@@ -1,5 +1,7 @@
 #Imports
 import os														#OS
+import sys														#SYSTEM
+import traceback												#TRACEBACK
 import time														#TIME
 import asyncio													#ASYNCIO
 import discord													#DISCORD API
@@ -10,6 +12,17 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 DEV = os.environ['DEV']
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
+extensions = ['cogs.economy']
+
+if __name__ == '__main__':
+    for extension in extensions:
+        try:
+            bot.load_extension(extension)
+        except Exception as e:
+            print(f'Failed to load extension {extension}.', file=sys.stderr)
+            traceback.print_exc()
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ STANDARD COMMANDS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 @bot.event
@@ -32,7 +45,7 @@ async def on_ready():
 async def now(msg):
 	clt = time.strftime("%a, %d %b %Y %I:%M:%S %p", time.localtime())
 	await msg.send("```python\n['SERVER TIME']\n\nAsia/Manila UTC +08:00\n#>\t{}```".format(clt))
-
+'''
 @bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def daily(msg):
@@ -42,7 +55,16 @@ async def daily(msg):
 	if claim_status:
 		gmt = time.localtime()
 		hrs, mins, secs = 23 - gmt[3], 59 - gmt[4], 59 - gmt[5]
-		await msg.send(":gift: | **{}**, you still have to wait **{} hour/s**, **{} minute/s** and **{} second/s** for your next daily reward.".format(msg.author.name,hrs,mins,secs))
+		''
+		if hrs == 1:
+			hrs = "**1 hour**"
+		if mins == 1:
+			mins = "**1 minute**"
+		if secs == 1:
+			secs = "**1 second**"
+		''
+		#WRITE CODE HERE
+		await msg.send(":gift: | **{}**, you still have to wait {}, {} and {} for your next daily reward.".format(msg.author.name,hrs,mins,secs))
 	else:
 		cur.execute("UPDATE kidz SET isDailyClaimed = true WHERE usr_id LIKE "+(user))
 		cur.execute("SELECT mono FROM kidz WHERE usr_id LIKE "+(user))
@@ -50,7 +72,7 @@ async def daily(msg):
 		cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
 		await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 	conn.commit()
-
+'''
 @bot.command()
 async def wallet(msg, user:str=None):
 	money = 0;
