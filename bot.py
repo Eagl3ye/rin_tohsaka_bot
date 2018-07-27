@@ -13,18 +13,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 DEV = os.environ['DEV']
 
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
-extensions = ['cogs.economy']
-
-if __name__ == '__main__':
-    for extension in extensions:
-        try:
-            bot.load_extension(extension)
-        except Exception as e:
-            print(f'Failed to load extension {extension}.', file=sys.stderr)
-            traceback.print_exc()
-
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ STANDARD COMMANDS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ CORE EVENTS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 @bot.event
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandOnCooldown):
@@ -40,6 +29,18 @@ async def on_ready():
 	print('Changing presence...')
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
+extensions = ['cogs.economy']
+
+if __name__ == '__main__':
+    for extension in extensions:
+        try:
+            bot.load_extension(extension)
+        except Exception as e:
+            print(f'Failed to load extension {extension}.', file=sys.stderr)
+            traceback.print_exc()
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ STANDARD COMMANDS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 @bot.command()
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def now(msg):
