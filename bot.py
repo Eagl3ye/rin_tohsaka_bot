@@ -30,7 +30,7 @@ async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
-extensions = ['cogs.economy']
+extensions = ['economy']
 
 if __name__ == '__main__':
     for extension in extensions:
