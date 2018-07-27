@@ -22,5 +22,5 @@ class Economy:
 			cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
 			await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 		conn.commit()
-	def setup(bot):
+def setup(bot):
     bot.add_cog(Economy(bot))
