@@ -1,3 +1,4 @@
+import os														#OS
 import time														#TIME
 import discord													#DISCORD API
 from discord.ext import commands
