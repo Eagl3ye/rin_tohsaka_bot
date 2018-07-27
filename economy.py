@@ -1,5 +1,10 @@
+import time														#TIME
 import discord													#DISCORD API
 from discord.ext import commands
+import psycopg2													#DATABASE HANDLING
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+cur = conn.cursor()
 
 class Economy:
 	def __init__(self, bot):
@@ -22,5 +27,6 @@ class Economy:
 			cur.execute("UPDATE kidz SET mono = {} WHERE usr_id LIKE ".format(money + 50)+(user))
 			await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 		conn.commit()
+
 def setup(bot):
     bot.add_cog(Economy(bot))
