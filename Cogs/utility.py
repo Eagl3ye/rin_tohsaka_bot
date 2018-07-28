@@ -1,5 +1,6 @@
 import os														#OS
 import time														#TIME
+import imgkit													#IMGKIT
 import discord													#DISCORD API
 from discord.ext import commands
 import psycopg2													#DATABASE HANDLING
