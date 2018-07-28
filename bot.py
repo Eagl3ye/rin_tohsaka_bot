@@ -31,6 +31,7 @@ async def status_task():
 
 @bot.event
 async def on_ready():
+	asyncio.get_event_loop().close()
 	print('Logged in as...')
 	print("Bot:",bot.user.name)
 	print("User_ID:",bot.user.id)
