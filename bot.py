@@ -14,15 +14,6 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ EVENTS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
-async def status_task():
-	while True:
-		await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='.'))
-		await asyncio.sleep(1)
-		await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='. .'))
-		await asyncio.sleep(1)
-		await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='. . .'))
-		await asyncio.sleep(1)
-
 @bot.event
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandOnCooldown):
@@ -36,7 +27,8 @@ async def on_ready():
 	print("User_ID:",bot.user.id)
 	print("Connection >> ", conn)
 	print('Changing presence...')
-	bot.loop.create_task(status_task())
+	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='Games'))
+
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 extensions = ['Cogs.economy', 'Cogs.utility', 'Cogs.dev', 'Cogs.games']
 
