@@ -31,9 +31,17 @@ class Utility:
 	# [|] Shows the User's unique Discord ID
 	@commands.cooldown(1, 2, commands.BucketType.user)
 	async def myid(self, msg):
-		args = str(msg.message.content).split()
 		await msg.send(msg.author.id)
 		print((str(args[1]))[3:-1])
+
+	@commands.command(name='google', hidden=True)
+	# [+] GOOGLE
+	# [|] Shows Google
+	@commands.cooldown(1, 5, commands.BucketType.user)
+	async def google(self, msg):
+		async with channel.typing():
+			image = imgkit.from_url('http://google.com', 'out.jpg')
+			await msg.send('', file=discord.File(image))
 
 def setup(bot):
     bot.add_cog(Utility(bot))
