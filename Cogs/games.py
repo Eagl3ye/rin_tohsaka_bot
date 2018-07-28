@@ -10,7 +10,7 @@ class Games:
 	# [+] WEREWOLF
 	# [|] Plays Werewolf	
 	@commands.cooldown(1, 3, commands.BucketType.user)
-	async def werewolf(self, options=None):
+	async def werewolf(self, msg, options=None):
 		if options == None:
 			await msg.send(" ")
 
