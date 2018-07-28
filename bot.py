@@ -33,7 +33,7 @@ async def on_ready():
 	while True:
 		stat = next(stats)
 		await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name=stat))
-		await asyncio.sleep(1)
+		await asyncio.sleep(2)
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 extensions = ['Cogs.economy', 'Cogs.utility', 'Cogs.dev', 'Cogs.games']
