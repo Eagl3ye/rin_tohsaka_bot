@@ -29,7 +29,7 @@ async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='. . .'))
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
-extensions = ['Cogs.economy', 'Cogs.utility', 'Cogs.dev']
+extensions = ['Cogs.economy', 'Cogs.utility', 'Cogs.dev', 'Cogs.games']
 
 if __name__ == '__main__':
     for extension in extensions:
