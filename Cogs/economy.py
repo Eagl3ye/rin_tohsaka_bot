@@ -11,7 +11,7 @@ class Economy:
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command(name='daily', description="Claims the daily reward", hidden=False, brief="Claims the daily reward")
+	@commands.command(name='daily', description="Claims the daily reward.", hidden=False, brief="Claims the daily reward.")
 	# [+] DAILY
 	# [|] Claim the daily reward
 	@commands.cooldown(1, 5, commands.BucketType.user)
@@ -31,7 +31,7 @@ class Economy:
 			await msg.send(":gift: | **{}**, you received :yen: 50 credits.".format(msg.author.name))
 		conn.commit()
 
-	@commands.command(name='wallet', description="Displays the User's or Target User's credits in the wallet", hidden=False, brief="Displays the User's or Target User's credits in the wallet")
+	@commands.command(name='wallet', description="Displays the User's or Target User's credits in the wallet.", hidden=False, brief="Displays the User's or Target User's credits in the wallet.")
 	# [+] WALLET
 	# [|] Displays the User's or Target User's credits in the wallet
 	@commands.cooldown(1, 5, commands.BucketType.user)
