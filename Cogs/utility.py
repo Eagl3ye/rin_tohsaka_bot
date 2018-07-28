@@ -10,8 +10,15 @@ cur = conn.cursor()
 class Utility:
 	def __init__(self, bot):
 		self.bot = bot
-	
-	@commands.command(name='now', aliases=['time','timenow'])	
+
+	@commands.command(name='greet', aliases=['Hello'], description="Greets the User", hidden=False)
+	# [+] GREET
+	# [|] Greets the User
+	@commands.cooldown(1, 5, commands.BucketType.user)
+	async def greet(self, msg):
+		await msg.send(":smiley: :wave: Hello, there!")
+
+	@commands.command(name='now', aliases=['time','timenow'], description="Displays the current server time", hidden=False)	
 	# [+] NOW
 	# [|] Displays the current server time
 	@commands.cooldown(1, 2, commands.BucketType.user)
@@ -19,9 +26,9 @@ class Utility:
 		clt = time.strftime("%a, %d %b %Y %I:%M:%S %p", time.localtime())
 		await msg.send("```python\n['SERVER TIME']\n\nAsia/Manila UTC +08:00\n#>\t{}```".format(clt))
 
-	@commands.command(name='myid', aliases=['id'])
+	@commands.command(name='myid', aliases=['id'], description="Shows the User's unique Discord ID", hidden=False)
 	# [+] MYID
-	# [|] Shows the unique Discord ID
+	# [|] Shows the User's unique Discord ID
 	@commands.cooldown(1, 2, commands.BucketType.user)
 	async def myid(self, msg):
 		args = str(msg.message.content).split()
