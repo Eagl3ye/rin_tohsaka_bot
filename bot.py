@@ -18,7 +18,7 @@ cur = conn.cursor()
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandOnCooldown):
 		await msg.send(":clock5: | **COOLDOWN: Retry again in {:.2f}s.**".format(error.retry_after))
-		return			
+		return
 
 @bot.event
 async def on_ready():
@@ -28,6 +28,7 @@ async def on_ready():
 	print("Connection >> ", conn)
 	print('Changing presence...')
 
+	stats_list = ['.', '. .', '. . .']
 	stats = cycle(stats_list)
 	while True:
 		stat = next(stats)
