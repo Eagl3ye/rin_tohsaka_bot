@@ -30,7 +30,7 @@ async def on_ready():
 	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='with Daddy'))
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
-extensions = ['economy']
+extensions = ['Cogs.economy', 'Cogs.utility']
 
 if __name__ == '__main__':
     for extension in extensions:
@@ -41,18 +41,6 @@ if __name__ == '__main__':
             traceback.print_exc()
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ STANDARD COMMANDS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
-@bot.command()
-@commands.cooldown(1, 2, commands.BucketType.user)
-async def now(msg):
-	clt = time.strftime("%a, %d %b %Y %I:%M:%S %p", time.localtime())
-	await msg.send("```python\n['SERVER TIME']\n\nAsia/Manila UTC +08:00\n#>\t{}```".format(clt))
-
-@bot.command()
-async def myid(msg):
-	args = str(msg.message.content).split()
-	await msg.send(msg.author.id)
-	print((str(args[1]))[3:-1])
-
 @bot.command()
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def greet(msg):
