@@ -36,7 +36,8 @@ async def on_ready():
 	print("User_ID:",bot.user.id)
 	print("Connection >> ", conn)
 	print('Changing presence...')
-
+	asyncio.ensure_future(status_task())
+	asyncio.get_event_loop().run_forever()
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 extensions = ['Cogs.economy', 'Cogs.utility', 'Cogs.dev', 'Cogs.games']
@@ -49,7 +50,5 @@ if __name__ == '__main__':
 			print(f'Failed to load extension {extension}.', file=sys.stderr)
 			traceback.print_exc()
 
-asyncio.ensure_future(status_task())
-asyncio.get_event_loop().run_forever()
 BOT_TOKEN = os.environ['BOT_TOKEN']
 bot.run(BOT_TOKEN)
