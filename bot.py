@@ -14,23 +14,21 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ EVENTS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
-
-
-stats_list = ['.', '. .', '. . .']
 async def status_task():
-	stats = cycle(stats_list)
 	while True:
-		stat = next(stats)
-		await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name=stat))
+		await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='.'))
 		await asyncio.sleep(1)
-
+		await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='. .'))
+		await asyncio.sleep(1)
+		await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='. . .'))
+		await asyncio.sleep(1)
 @bot.event
 async def on_command_error(msg, error):
 	if isinstance(error, commands.CommandOnCooldown):
 		await msg.send(":clock5: | **COOLDOWN: Retry again in {:.2f}s.**".format(error.retry_after))
 		return
 
-@bot.event
+@bot.eventss
 async def on_ready():
 	print('Logged in as...')
 	print("Bot:",bot.user.name)
