@@ -41,8 +41,7 @@ class Utility:
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	async def google(self, msg):
 		#async with channel.typing():
-		imgkit.from_url('http://google.com', 'out.jpg')
-		await msg.send('', file=discord.File('out.jpg'))
+		await msg.send('', file=discord.File(imgkit.from_url('http://google.com', 'out.jpg')))
 
 def setup(bot):
     bot.add_cog(Utility(bot))
