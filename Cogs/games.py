@@ -9,12 +9,12 @@ cur = conn.cursor()
 class Games:
 	def __init__(self, bot):
 		self.bot = bot
-
+		is_game_running = False
+		
 	@commands.command(name="werewolf", description="Type `r![werewolf|wolf|ww] [info]` for an in-depth description.", aliases=['wolf','ww'], help="Plays Werewolf.", hidden=False, brief="Plays Werewolf.")
 	# [+] WEREWOLF
 	# [|] Plays Werewolf	
 	@commands.cooldown(1, 2, commands.BucketType.user)
-	is_game_running = False
 	async def werewolf(self, msg, options=None):
 		if options == None:
 			#Display help
