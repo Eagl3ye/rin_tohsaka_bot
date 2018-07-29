@@ -3,7 +3,6 @@ import os														#OS
 import sys														#SYSTEM
 import traceback												#TRACEBACK
 import time														#TIME
-import imgkit													#IMGKIT
 import discord													#DISCORD API
 from discord.ext import commands
 bot = commands.Bot(command_prefix='r!')

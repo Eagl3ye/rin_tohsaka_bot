@@ -1,6 +1,5 @@
 import os														#OS
 import time														#TIME
-import imgkit													#IMGKIT
 import discord													#DISCORD API
 from discord.ext import commands
 import psycopg2													#DATABASE HANDLING
@@ -34,14 +33,6 @@ class Utility:
 	async def myid(self, msg):
 		await msg.send(msg.author.id)
 		print((str(args[1]))[3:-1])
-
-	@commands.command(name='google', hidden=True)
-	# [+] GOOGLE
-	# [|] Shows Google
-	@commands.cooldown(1, 5, commands.BucketType.user)
-	async def google(self, msg):
-		#async with channel.typing():
-		await msg.send('', file=discord.File(imgkit.from_url('http://google.com', 'out.jpg')))
 
 def setup(bot):
     bot.add_cog(Utility(bot))
