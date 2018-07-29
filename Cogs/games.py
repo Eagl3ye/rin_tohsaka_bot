@@ -20,19 +20,19 @@ class Games:
 			#Display help
 			pass
 		elif options == "create":
-			if IS_WW_RUNNING:
+			if IS_WW_RUNNING == "True":
 				await msg.send(":gear: | `An instance of the game is already running...`")
 			else:
 				try:
 					cur.execute("CREATE TABLE werewolf (id serial PRIMARY KEY, usr_id text UNIQUE, name text, is_dead boolean, role text);")
 					conn.commit()
 					await msg.send(":white_check_mark: | **WEREWOLF**: LOBBY CREATED!\n\nType `r![werewolf|wolf|ww] [join]` to join")
-					os.environ['IS_WW_RUNNING'] = True
+					os.environ['IS_WW_RUNNING'] = "True"
 				except psycopg2.DatabaseError:
 					conn.rollback()
 					await msg.send(":gear: | `An instance of the game is already running...`")
 		elif options == "join":
-			if IS_WW_RUNNING:
+			if IS_WW_RUNNING == "True":
 				authid = msg.author.id
 				authname = msg.author.name
 				try:
@@ -53,9 +53,9 @@ class Games:
 		elif options == "info":
 			await msg.send("```\nWerewolf takes place in a small village which is haunted by werewolves.\n\nEach player is secretly assigned a role - Werewolf, Villager, or Seer (a special Villager).\nThere is also a Moderator who controls the flow of the game.\nThe game alternates between night and day phases.\nAt night, the Werewolves secretly choose a Villager to kill.\nAlso, the Seer (if still alive) asks whether another player is a Werewolf or not.\nDuring the day, the Villager who was killed is revealed and is out of the game.\n\nThe remaining Villagers then vote on the player they suspect is a Werewolf.\nThat player reveals his/her role and is out of the game.\nWerewolves win when there are an equal number of Villagers and Werewolves.\nVillagers win when they have killed all Werewolves.\n```")
 		elif options == "leave":
-			if IS_WW_RUNNING:
+			if IS_WW_RUNNING == "True":
 				cur.execute("DROP TABLE werewolf;")
-				os.environ['IS_WW_RUNNING'] = False
+				os.environ['IS_WW_RUNNING'] = "False"
 				conn.commit()
 				await msg.send(":gear: | `An instance of the game has been removed.`")
 			else:
