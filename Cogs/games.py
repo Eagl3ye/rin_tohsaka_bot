@@ -28,25 +28,29 @@ class Games:
 					cur.execute("CREATE TABLE werewolf (id serial PRIMARY KEY, usr_id text UNIQUE, name text, is_dead boolean, role text);")
 					conn.commit()
 					await msg.send(":white_check_mark: | **WEREWOLF**: LOBBY CREATED!\n\nType `r![werewolf|wolf|ww] [join]` to join")
+					is_game_running = True
 				except psycopg2.DatabaseError:
 					conn.rollback()
 					await msg.send(":gear: | `An instance of the game is already running...`")
 		elif options == "join":
-			authid = msg.author.id
-			authname = msg.author.name
-			try:
-				cur.execute("INSERT INTO werewolf (usr_id, name, is_dead) VALUES ({}, {}, False);".format(authid, authname))
-				cur.execute("SELECT * FROM werewolf;")
-				joined_count = int(max(cur.fetchall())[0]) + 1
-				embed=discord.Embed(color=0x5050a0)
-				embed.add_field(name=Game: Werewolf , value=[ joined_count / 4 Players joined the game ], inline=False)
-				embed.set_footer(text="r!werewolf join - to join the game")
-				await msg.send(embed=embed)
-				conn.commit()
-			except psycopg2.IntegrityError:
-				await msg.send(":lock: | **{}**, You already joined the game.".format(authname))
-				conn.rollback()
-				pass
+			if is_game_running:
+				authid = msg.author.id
+				authname = msg.author.name
+				try:
+					cur.execute("INSERT INTO werewolf (usr_id, name, is_dead) VALUES ({}, {}, False);".format(authid, authname))
+					cur.execute("SELECT * FROM werewolf;")
+					joined_count = int(max(cur.fetchall())[0]) + 1
+					embed=discord.Embed(color=0x5050a0)
+					embed.add_field(name=Game: Werewolf , value=[ joined_count / 4 Players joined the game ], inline=False)
+					embed.set_footer(text="r!werewolf join - to join the game")
+					await msg.send(embed=embed)
+					conn.commit()
+				except psycopg2.IntegrityError:
+					await msg.send(":lock: | **{}**, You already joined the game.".format(authname))
+					conn.rollback()
+					pass
+			else:
+				await msg.send(":negative_squared_cross_mark: | **WEREWOLF**: NO LOBBY FOUND!\n\nType `r![werewolf|wolf|ww] [create]` to create a lobby")
 		elif options == "info":
 			await msg.send(desc)
 		elif options == "leave":
