@@ -53,13 +53,13 @@ class Games:
 		elif options == "info":
 			await msg.send("```\nWerewolf takes place in a small village which is haunted by werewolves.\n\nEach player is secretly assigned a role - Werewolf, Villager, or Seer (a special Villager).\nThere is also a Moderator who controls the flow of the game.\nThe game alternates between night and day phases.\nAt night, the Werewolves secretly choose a Villager to kill.\nAlso, the Seer (if still alive) asks whether another player is a Werewolf or not.\nDuring the day, the Villager who was killed is revealed and is out of the game.\n\nThe remaining Villagers then vote on the player they suspect is a Werewolf.\nThat player reveals his/her role and is out of the game.\nWerewolves win when there are an equal number of Villagers and Werewolves.\nVillagers win when they have killed all Werewolves.\n```")
 		elif options == "leave":
-			if IS_WW_RUNNING == "True":
-				cur.execute("DROP TABLE werewolf;")
-				os.environ['IS_WW_RUNNING'] = "False"
-				conn.commit()
-				await msg.send(":gear: | `An instance of the game has been removed.`")
-			else:
-				await msg.send(":negative_squared_cross_mark: | **WEREWOLF**: NO LOBBY FOUND!\n\nType `r![werewolf|wolf|ww] [create]` to create a lobby")
+			#if IS_WW_RUNNING == "True":
+			cur.execute("DROP TABLE werewolf;")
+			#	os.environ['IS_WW_RUNNING'] = "False"
+			conn.commit()
+			await msg.send(":gear: | `An instance of the game has been removed.`")
+			#else:
+			#	await msg.send(":negative_squared_cross_mark: | **WEREWOLF**: NO LOBBY FOUND!\n\nType `r![werewolf|wolf|ww] [create]` to create a lobby")
 		else:
 			pass
 
