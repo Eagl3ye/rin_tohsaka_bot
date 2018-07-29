@@ -2,15 +2,16 @@ import os														#OS
 import time														#TIME
 import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-cur = conn.cursor()
 
 while True:
 	time.sleep(1)
 	clt = time.strftime("%H %M %S", time.localtime())
 	if (clt == "23 59 59"):
+		conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+		cur = conn.cursor()
 		cur.execute("UPDATE kidz SET isDailyClaimed = False;")
 		conn.commit()
+		conn.close()
 		print("[SERVER] |\tResetting dailies...")
 
 '''

@@ -6,6 +6,7 @@ import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
+conn.close()
 
 class Utility:
 	def __init__(self, bot):
