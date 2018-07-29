@@ -14,7 +14,7 @@ class Games:
 	# [+] WEREWOLF
 	# [|] Plays Werewolf	
 	@commands.cooldown(1, 2, commands.BucketType.user)
-	async def werewolf(self, msg, options=str:None):
+	async def werewolf(self, msg, options=None):
 		is_game_running = False
 		if options == None:
 			#Display help
