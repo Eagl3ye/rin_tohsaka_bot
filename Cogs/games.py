@@ -5,12 +5,12 @@ import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
+is_game_running = False
 
 class Games:
 	def __init__(self, bot):
 		self.bot = bot
 
-	is_game_running = False
 	@commands.command(name="werewolf", description="Type `r![werewolf|wolf|ww] [info]` for an in-depth description.", aliases=['wolf','ww'], help="Plays Werewolf.", hidden=False, brief="Plays Werewolf.")
 	# [+] WEREWOLF
 	# [|] Plays Werewolf	
