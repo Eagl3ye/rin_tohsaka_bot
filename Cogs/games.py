@@ -5,7 +5,6 @@ import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
-is_game_running = False
 
 class Games:
 	def __init__(self, bot):
@@ -16,6 +15,7 @@ class Games:
 	# [|] Plays Werewolf	
 	@commands.cooldown(1, 2, commands.BucketType.user)
 	async def werewolf(self, msg, options=None):
+		is_game_running = False
 		if options == None:
 			#Display help
 			pass
