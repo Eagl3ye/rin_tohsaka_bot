@@ -41,7 +41,7 @@ class Games:
 					cur.execute("SELECT * FROM werewolf;")
 					joined_count = int(max(cur.fetchall())[0]) + 1
 					embed=discord.Embed(color=0x5050a0)
-					embed.add_field(name=Game: Werewolf , value=[ joined_count / 4 Players joined the game ], inline=False)
+					embed.add_field(name="Game: Werewolf", value="[ "+joined_count" / 4 Players joined the game ]", inline=False)
 					embed.set_footer(text="r!werewolf join - to join the game")
 					await msg.send(embed=embed)
 					conn.commit()
