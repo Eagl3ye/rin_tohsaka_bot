@@ -15,25 +15,25 @@ class Games:
 	# [|] Plays Werewolf	
 	@commands.cooldown(1, 2, commands.BucketType.user)
 	async def werewolf(self, msg, options=None):
-		is_game_running = False
+		#is_game_running = False
 		if options == None:
 			#Display help
 			pass
 		elif options == "create":
-			if is_game_running:
+			#if is_game_running:
+			#	await msg.send(":gear: | `An instance of the game is already running...`")
+			#else:
+			try:
+				cur.execute("CREATE TABLE werewolf (id serial PRIMARY KEY, usr_id text UNIQUE, name text, is_dead boolean, role text);")
+				conn.commit()
+				await msg.send(":white_check_mark: | **WEREWOLF**: LOBBY CREATED!\n\nType `r![werewolf|wolf|ww] [join]` to join")
+				#is_game_running = True
+				#print("\n",is_game_running,"\n")
+			except psycopg2.DatabaseError:
+				conn.rollback()
 				await msg.send(":gear: | `An instance of the game is already running...`")
-			else:
-				try:
-					cur.execute("CREATE TABLE werewolf (id serial PRIMARY KEY, usr_id text UNIQUE, name text, is_dead boolean, role text);")
-					conn.commit()
-					await msg.send(":white_check_mark: | **WEREWOLF**: LOBBY CREATED!\n\nType `r![werewolf|wolf|ww] [join]` to join")
-					is_game_running = True
-					print("\n",is_game_running,"\n")
-				except psycopg2.DatabaseError:
-					conn.rollback()
-					await msg.send(":gear: | `An instance of the game is already running...`")
 		elif options == "join":
-			print("\n",is_game_running,"\n")
+			#print("\n",is_game_running,"\n")
 			#if is_game_running:
 			authid = msg.author.id
 			authname = msg.author.name
