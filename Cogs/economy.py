@@ -21,7 +21,7 @@ class Economy:
 		claim_status = bool((cur.fetchall())[0][0])
 		if claim_status:
 			gmt = time.localtime()
-			hrs, mins, secs = 23 - gmt[3], 59 - gmt[4], 59 - gmt[5]
+			hrs, mins, secs = 23 - gmt[3], 60 - gmt[4], 59 - gmt[5]
 			await msg.send(":gift: | **{}**, you still have to wait {} hour/s, {} minute/s and {} second/s for your next daily reward.".format(msg.author.name,hrs,mins,secs))
 		else:
 			cur.execute("UPDATE kidz SET isDailyClaimed = true WHERE usr_id LIKE "+(user))
