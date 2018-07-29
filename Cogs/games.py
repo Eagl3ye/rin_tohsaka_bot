@@ -1,3 +1,4 @@
+import os														#OS
 import discord													#DISCORD API
 from discord.ext import commands
 import psycopg2													#DATABASE HANDLING
