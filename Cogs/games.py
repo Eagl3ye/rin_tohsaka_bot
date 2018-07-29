@@ -36,6 +36,7 @@ class Games:
 			if is_game_running:
 				authid = msg.author.id
 				authname = msg.author.name
+				print("\n",authid,authname,"\n")
 				try:
 					cur.execute("INSERT INTO werewolf (usr_id, name, is_dead) VALUES ({}, {}, False);".format(authid, authname))
 					cur.execute("SELECT * FROM werewolf;")
@@ -52,9 +53,10 @@ class Games:
 			else:
 				await msg.send(":negative_squared_cross_mark: | **WEREWOLF**: NO LOBBY FOUND!\n\nType `r![werewolf|wolf|ww] [create]` to create a lobby")
 		elif options == "info":
-			await msg.send(desc)
+			await msg.send("{}".format(desc))
 		elif options == "leave":
 			cur.execute("DROP TABLE werewolf;")
+			is_game_running = False
 			conn.commit()
 			await msg.send(":gear: | `An instance of the game has been removed.`")
 		else:
