@@ -34,25 +34,24 @@ class Games:
 					await msg.send(":gear: | `An instance of the game is already running...`")
 		elif options == "join":
 			print("\n",is_game_running,"\n")
-			if is_game_running:
-				authid = msg.author.id
-				authname = msg.author.name
-				print("\n",authid,authname,"\n")
-				try:
-					cur.execute("INSERT INTO werewolf (usr_id, name, is_dead) VALUES ({}, {}, False);".format(authid, authname))
-					cur.execute("SELECT * FROM werewolf;")
-					joined_count = int(max(cur.fetchall())[0]) + 1
-					embed=discord.Embed(color=0x5050a0)
-					embed.add_field(name="Game: Werewolf", value="[ "+joined_count+" / 4 Players joined the game ]", inline=False)
-					embed.set_footer(text="r!werewolf join - to join the game")
-					await msg.send(embed=embed)
-					conn.commit()
-				except psycopg2.IntegrityError:
-					await msg.send(":lock: | **{}**, You already joined the game.".format(authname))
-					conn.rollback()
-					pass
-			else:
-				await msg.send(":negative_squared_cross_mark: | **WEREWOLF**: NO LOBBY FOUND!\n\nType `r![werewolf|wolf|ww] [create]` to create a lobby")
+			#if is_game_running:
+			authid = msg.author.id
+			authname = msg.author.name
+			try:
+				cur.execute("INSERT INTO werewolf (usr_id, name, is_dead) VALUES ({}, {}, False);".format(authid, authname))
+				cur.execute("SELECT * FROM werewolf;")
+				joined_count = int(max(cur.fetchall())[0]) + 1
+				embed=discord.Embed(color=0x5050a0)
+				embed.add_field(name="Game: Werewolf", value="[ "+joined_count+" / 4 Players joined the game ]", inline=False)
+				embed.set_footer(text="r!werewolf join - to join the game")
+				await msg.send(embed=embed)
+				conn.commit()
+			except psycopg2.IntegrityError:
+				await msg.send(":lock: | **{}**, You already joined the game.".format(authname))
+				conn.rollback()
+				pass
+			#else:
+			#	await msg.send(":negative_squared_cross_mark: | **WEREWOLF**: NO LOBBY FOUND!\n\nType `r![werewolf|wolf|ww] [create]` to create a lobby")
 		elif options == "info":
 			await msg.send("```\nWerewolf takes place in a small village which is haunted by werewolves.\n\nEach player is secretly assigned a role - Werewolf, Villager, or Seer (a special Villager).\nThere is also a Moderator who controls the flow of the game.\nThe game alternates between night and day phases.\nAt night, the Werewolves secretly choose a Villager to kill.\nAlso, the Seer (if still alive) asks whether another player is a Werewolf or not.\nDuring the day, the Villager who was killed is revealed and is out of the game.\n\nThe remaining Villagers then vote on the player they suspect is a Werewolf.\nThat player reveals his/her role and is out of the game.\nWerewolves win when there are an equal number of Villagers and Werewolves.\nVillagers win when they have killed all Werewolves.\n```")
 		elif options == "leave":
