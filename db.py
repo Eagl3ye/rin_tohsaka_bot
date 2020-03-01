@@ -3,6 +3,18 @@ import time														#TIME
 import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+cur = conn.cursor()
+cur.execute("ALTER TABLE kidz DROP COLUMN daily;")
+conn.commit()
+conn.close()
+cur = conn.cursor()
+cur.execute("ALTER TABLE kidz ADD COLUMN isDailyClaimed bool;")
+conn.commit()
+conn.close()
+
+DROP COLUMN DateOfBirth;
 while True:
 	time.sleep(1)
 	clt = time.strftime("%H %M %S", time.localtime())
