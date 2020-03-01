@@ -3,12 +3,6 @@ import time														#TIME
 import psycopg2													#DATABASE HANDLING
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-cur = conn.cursor()
-cur.execute("CREATE TABLE kidz (id serial PRIMARY KEY, usr_id text UNIQUE, mono integer);")
-cur.execute("ALTER TABLE kidz ADD daily bool")
-conn.commit()
-conn.close()
-
 while True:
 	time.sleep(1)
 	clt = time.strftime("%H %M %S", time.localtime())
