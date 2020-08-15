@@ -6,11 +6,6 @@ import time														#TIME
 import discord													#DISCORD API
 from discord.ext import commands
 bot = commands.Bot(command_prefix='r!')
-import psycopg2													#DATABASE HANDLING
-DATABASE_URL = os.environ['DATABASE_URL']
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-cur = conn.cursor()
-conn.close()
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ EVENTS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 @bot.event
@@ -26,7 +21,7 @@ async def on_ready():
 	print("User_ID:",bot.user.id)
 	print("Connection >> ", conn)
 	print('Changing presence...')
-	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='Games'))
+	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name='$help|$maid'))
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[ COGS ]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 extensions = ['Cogs.economy', 'Cogs.utility', 'Cogs.dev', 'Cogs.games']
